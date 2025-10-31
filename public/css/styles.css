@@ -165,18 +165,22 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 120px;
 }
 
 .upgrade img {
-  max-height: 80px;
+  height: 80px;
   width: auto;
+  object-fit: contain;
   margin-bottom: 6px;
+  
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px 20px;
+  background-color: #6f9ee8;
 }
 
 .upgrade a {
-  display: block;
-  color: #111;
-  font-weight: 600;
   text-align: center;
 }
 
@@ -191,4 +195,247 @@ h1 {
   font-size: 0.95rem;
   line-height: 1.4;
   color: #333;
+}
+
+/* ****** Desktop Query ****** */
+@media only screen and (min-width: 768px) {
+/* ****** Body ****** */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('../images/site/checkerboard.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+}
+
+#wrapper {
+  background-color: white;
+  width: 90%;
+  max-width: 1200px;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  border: 5px solid #6f9ee8;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+/* ****** Header ****** */
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  color: black;
+}
+
+#top-header a {
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#top-header a:hover {
+  text-decoration: underline;
+}
+
+.siteName a {
+  font-size: 1.7rem;
+  letter-spacing: 1px;
+}
+
+#tools a {
+  font-size: 1rem;
+}
+
+/* ****** Navigation ****** */
+nav {
+  background-color: #000;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+nav li {
+  color: white;
+  padding: 15px 20px;
+  cursor: pointer;
+}
+
+nav li:hover {
+  background-color: #222;
+}
+
+/* ****** Welcome ******* */
+h1 {
+  font-size: 2rem;
+}
+
+.delorean-container {
+  background-image: url('/images/vehicles/delorean.jpg');
+  background-size: 87%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-left: 10%;
+  position: relative;
+}
+
+.delorean-card {
+  background-color: rgba(255, 255, 255, 0.45);
+  padding: 30px 40px;
+  border-radius: 12px;
+  border: 2px solid #111;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  position: absolute;
+  top: 38%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.delorean-text {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #111;
+}
+
+.delorean-card p {
+  display: block !important;
+  margin: 0;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+#cta-img {
+  align-self: center;
+  margin-top: 25px;
+  max-width: 160px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#cta-img:hover {
+  transform: scale(1.05);
+}
+
+/* ****** Upgrades & Reviews ******* */
+.delorean-sections {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 40px;
+  padding: 40px 5%;
+}
+
+.delorean-reviews {
+  order: 0;
+}
+
+.delorean-upgrades,
+.delorean-reviews {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.delorean-upgrades {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.delorean-upgrades h2,
+.delorean-reviews h2 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.upgrade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upgrade img {
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.upgrade a {
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  text-align: center;
+}
+
+.delorean-reviews {
+  justify-content: flex-start;
+}
+
+.delorean-reviews ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.delorean-reviews li {
+  line-height: 1.6;
+  font-size: 1.05rem;
+  color: #333;
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  body,
+  #wrapper {
+    min-height: auto;
+  }
+
+  .delorean-container {
+    background-size: contain;
+    background-position: top center;
+    background-repeat: no-repeat;
+    min-height: 32vh;
+    margin-bottom: 40px; 
+    padding-top: 0;
+  }
+
+  .delorean-card {
+    top: 25%;
+    left: 3%;
+    transform: translate(0, -30%);
+    max-width: 40%;
+    padding: 10px 15px;
+  }
+
+  .delorean-sections {
+    margin-top: 0;
+    padding-top: 10px;
+  }
 }
