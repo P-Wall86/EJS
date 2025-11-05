@@ -17,3 +17,6 @@ node_modules
 
 # Not to be included in the test
 README.md
+
+#Database data
+inventory-data.txt
