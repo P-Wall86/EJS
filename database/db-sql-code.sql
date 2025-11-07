@@ -40,7 +40,7 @@ VALUES ('Custom'),
     ('Sport'),
     ('SUV'),
     ('Truck'),
-    ('Sedan');   
+    ('Sedan');
 -- Data for table `inventory`
 INSERT INTO public.inventory (
         inv_make,
@@ -234,3 +234,16 @@ VALUES (
         'White',
         5
     );
+--Queries from Assignment 2
+--4.Update GM Hummer description snippet
+UPDATE public.inventory
+SET inv_description = REPLACE(
+        inv_description,
+        'small interiors',
+        'a huge interior'
+    )
+WHERE inv_id = 10;
+--6.Update '/vehicles/' to the middle of the path for img and thumbnails
+UPDATE public.inventory
+SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
+    inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
