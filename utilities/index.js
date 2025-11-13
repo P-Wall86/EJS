@@ -52,10 +52,29 @@ Util.buildClassificationGrid = async function (data) {
         })
         grid += '</ul>'
     } else {
-        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+        grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
 }
+
+/* **************************************
+* Build items by ID
+* ************************************ */
+Util.buildItemHTML = function (vehicle) {
+    return `
+    <div class="vehicle-detail">
+        <h2>${vehicle.inv_make} ${vehicle.inv_model} (${vehicle.inv_year})</h2>
+        <ul>
+        <li>ID: ${vehicle.inv_id}</li>
+        <li>Color: ${vehicle.inv_color}</li>
+        <li>Mileage: ${vehicle.inv_mileage}</li>
+        <li>Price: $${Number(vehicle.inv_price).toFixed(2)}</li>
+        <li>Description: ${vehicle.inv_description}</li>
+        <li>Classification: ${vehicle.classification_name}</li>
+        </ul>
+    </div>
+    `;
+};
 
 /* ****************************************
  * Middleware For Handling Errors
