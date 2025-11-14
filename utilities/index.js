@@ -62,17 +62,32 @@ Util.buildClassificationGrid = async function (data) {
 * ************************************ */
 Util.buildItemHTML = function (vehicle) {
     return `
-    <div class="vehicle-detail">
-        <h2>${vehicle.inv_make} ${vehicle.inv_model} (${vehicle.inv_year})</h2>
-        <ul>
-        <li>ID: ${vehicle.inv_id}</li>
-        <li>Color: ${vehicle.inv_color}</li>
-        <li>Mileage: ${vehicle.inv_mileage}</li>
-        <li>Price: $${Number(vehicle.inv_price).toFixed(2)}</li>
-        <li>Description: ${vehicle.inv_description}</li>
-        <li>Classification: ${vehicle.classification_name}</li>
-        </ul>
-    </div>
+    <section class="vehicle-detail">
+
+        <div class="vehicle-img">
+            <img src="${vehicle.inv_image}" 
+                alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+        </div>
+
+        <div class="vehicle-info">
+            <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+
+            <p class="price">
+                $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}
+            </p>
+
+            <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+
+            <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+
+            <p><strong>Mileage:</strong> 
+                ${vehicle.inv_miles
+            ? new Intl.NumberFormat("en-US").format(Number(vehicle.inv_miles)) + " miles"
+            : "N/A"}
+            </p>
+        </div>
+
+    </section>
     `;
 };
 
