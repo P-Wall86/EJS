@@ -41,4 +41,11 @@ invCont.buildDetailView = async function (req, res, next) {
     }
 };
 
+/* ***************************
+ * Intentional 500 Error
+ ***************************/
+invCont.testError = (req, res, next) => {
+    next(new Error("Intentional 500 error for testing purposes"))
+}
+
 module.exports = invCont
