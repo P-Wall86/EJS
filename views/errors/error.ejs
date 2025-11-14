@@ -1,17 +1,18 @@
 <%# Error Page %>
+    <div class="error-container">
+        <% if (title) { %>
+            <h1>
+                <%= title %>
+            </h1>
+            <% } %>
 
-    <% if (title) { %>
-        <h1>
-            <%= title %>
-        </h1>
-        <% } %>
+                <% if (message) { %>
+                    <p>
+                        <%= message %>
+                    </p>
+                    <% } else { %>
+                        <p>An unexpected error occurred.</p>
+                        <% } %>
 
-            <% if (message) { %>
-                <p>
-                    <%= message %>
-                </p>
-                <% } else { %>
-                    <p>An unexpected error occurred.</p>
-                    <% } %>
-
-                        <a href="/" class="btn">Return to Home</a>
+                            <a href="/" class="btn">Return to Home</a>
+    </div>

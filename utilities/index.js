@@ -73,7 +73,7 @@ Util.buildItemHTML = function (vehicle) {
             <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
 
             <p class="price">
-                $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}
+               Price: $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}
             </p>
 
             <p><strong>Description:</strong> ${vehicle.inv_description}</p>

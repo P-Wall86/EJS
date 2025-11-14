@@ -23,6 +23,10 @@ body {
   padding: 0;
 }
 
+body h1 {
+  padding-left: 0.5rem;
+}
+
 /* Header */
 #top-header {
   display: flex;
@@ -227,7 +231,7 @@ footer a.trigger-error:hover {
   text-decoration: underline;
 }
 
-/* Classification Grid (Mobile First) */
+/* Classification Grid */
 #inv-display {
   list-style: none;
   padding: 0 12px;
@@ -252,6 +256,7 @@ footer a.trigger-error:hover {
   height: auto;
   display: block;
   margin: 0 auto 10px auto;
+  border-radius: 8px;
 }
 
 .namePrice {
@@ -267,8 +272,8 @@ footer a.trigger-error:hover {
 
 .namePrice a {
   text-decoration: none;
-  color: #000;
   font-weight: bold;
+  color:#1a73e8;
 }
 
 .namePrice span {
@@ -282,6 +287,110 @@ footer a.trigger-error:hover {
   border: none;
   border-top: 1px solid #ccc;
   margin-bottom: 8px;
+}
+
+/* Detail View */
+
+.vehicle-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 15px 12px;
+  max-width: 100%;
+}
+
+.vehicle-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.vehicle-info h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+  text-align: center;
+}
+
+.vehicle-info .price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0b4a8c;
+  margin-bottom: 1rem;
+}
+
+.vehicle-info p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #333;
+  margin: 0.5rem 0;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.vehicle-info p:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.vehicle-info p:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+
+.vehicle-info p strong {
+  color: #111;
+}
+
+body, html {
+  overflow-x: hidden;
+}
+
+/* Error Page */
+.error-container {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #f8f8f8;
+  padding: 40px 20px;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.error-container h1 {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  color: #e63946;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+}
+
+.error-container p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #555;
+  max-width: 500px;
+}
+
+.error-container .btn {
+  background-color: #1a73e8;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.error-container .btn:hover {
+  background-color: #155ab6;
 }
 
 /* ****** Desktop Query ****** */
@@ -501,7 +610,7 @@ footer {
   flex-direction: row;
 }
 
-/* Classification Grid – Desktop */
+/* ****** Classification Grid – Desktop ****** */
 #inv-display {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -515,7 +624,7 @@ footer {
   align-items: center;
   justify-content: flex-start;
   background: #fff;
-  border: 2px solid #6f9ee8;
+  border: 2px solid #333;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -546,6 +655,64 @@ footer {
   font-size: 1.2rem;
   font-weight: bold;
   color: #111;
+}
+
+/* ****** Detail View Desktop ****** */
+
+.vehicle-detail {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  padding: 20px;
+  max-width: 100%;
+  align-items: center;
+}
+
+.vehicle-img {
+  flex: 1;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vehicle-img img {
+  width: auto;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  object-fit: cover;
+  overflow: hidden;
+  object-fit: contain;
+}
+
+.vehicle-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #222;
+}
+
+.vehicle-info h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.vehicle-info .price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #0b4a8c;
+}
+
+.vehicle-info p strong {
+  color: #111;
+}
+
+body, html {
+  overflow-x: hidden;
 }
 }
 
