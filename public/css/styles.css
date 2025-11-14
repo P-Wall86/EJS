@@ -72,6 +72,17 @@ nav li:hover {
   background-color: #222;
 }
 
+nav a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 12px 0;
+}
+
+nav a:hover, nav a:visited, nav a:active {
+  color: #ccc;
+}
+
 /* Delorean Container */
 h1 {
   font-size: 1.3rem;
@@ -195,6 +206,82 @@ h1 {
   font-size: 0.95rem;
   line-height: 1.4;
   color: #333;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  font-size: 0.95rem;
+}
+
+footer a.trigger-error {
+  text-decoration: none;
+  color: #0066cc;
+  font-weight: 600;
+}
+
+footer a.trigger-error:hover {
+  text-decoration: underline;
+}
+
+/* Classification Grid (Mobile First) */
+#inv-display {
+  list-style: none;
+  padding: 0 12px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#inv-display li {
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+#inv-display img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.namePrice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.namePrice h2 {
+  font-size: 1.1rem;
+  margin: 10px 0 5px 0;
+}
+
+.namePrice a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.namePrice span {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.namePrice hr {
+  width: 80%;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin-bottom: 8px;
 }
 
 /* ****** Desktop Query ****** */
@@ -408,6 +495,57 @@ h1 {
   line-height: 1.6;
   font-size: 1.05rem;
   color: #333;
+}
+
+footer {
+  flex-direction: row;
+}
+
+/* Classification Grid – Desktop */
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+#inv-display li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  border: 2px solid #6f9ee8;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+  height: 100%;
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px);
+}
+
+#inv-display img {
+  width: 100%;
+  height: 170px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+#inv-display h2 {
+  font-size: 1.3rem;
+  text-align: center;
+  min-height: 50px;
+  margin: 10px 0;
+}
+
+#inv-display span {
+  margin-top: auto;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #111;
 }
 }
 
