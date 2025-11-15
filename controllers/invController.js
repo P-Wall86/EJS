@@ -27,7 +27,7 @@ invCont.buildDetailView = async function (req, res, next) {
         const itemId = req.params.id;
         const itemData = await invModel.getInventoryItemById(itemId);
         if (!itemData) {
-            return res.status(404).send("Vehicle not found");
+            return next({ status: 404, message: "Vehicle not found" });
         }
         const itemHTML = utilities.buildItemHTML(itemData);
         let nav = await utilities.getNav();
