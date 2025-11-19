@@ -394,6 +394,14 @@ body, html {
 }
 
 /* Login form styling */
+.login-form,
+.register-form {
+  width: calc(100% - 2rem);
+  max-width: 400px;
+  margin: 20px 1rem;
+  padding: 24px;
+}
+
 .login-form {
   max-width: 400px;
   margin: 20px auto;
@@ -428,6 +436,16 @@ body, html {
 .login-form button:hover {
   background: #005fcc;
 }
+
+.password-requirements {
+  display: block;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+ /* Registration form styling */
 
 .register-link {
   text-align: center;
@@ -469,6 +487,24 @@ body, html {
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #999;
+}
+
+.password-requirements {
+  display: block;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-wrapper input {
+  flex: 1;
 }
 
 .register-form button {
