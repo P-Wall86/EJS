@@ -393,6 +393,108 @@ body, html {
   background-color: #155ab6;
 }
 
+/* Login form styling */
+.login-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-form label {
+  font-weight: bold;
+}
+
+.login-form input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+
+.login-form button {
+  padding: 10px;
+  background: #067df7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background: #005fcc;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.register-link a {
+  color: #067df7;
+  font-weight: bold;
+}
+
+.flash-messages {
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 10px;
+  background: #fde4e4;
+  border-left: 5px solid #ff5a5a;
+  border-radius: 4px;
+}
+
+/* Registration Form */
+.register-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.register-form label {
+  font-weight: bold;
+}
+
+.register-form input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #999;
+}
+
+.register-form button {
+  padding: 10px;
+  background: #067df7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.register-form button:hover {
+  background: #005fcc;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.login-link a {
+  color: #067df7;
+  font-weight: bold;
+}
+
 /* ****** Desktop Query ****** */
 @media only screen and (min-width: 768px) {
 /* ****** Body ****** */
