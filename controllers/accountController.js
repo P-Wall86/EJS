@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs")
 const accountModel = require('../models/account-model')
 const utilities = require("../utilities/")
 
@@ -6,7 +7,12 @@ async function buildLogin(req, res, next) {
     res.render("account/login", {
         title: "Login",
         nav,
-        flashMessages: req.flash()
+        flashMessages: req.flash(),
+        errors: {
+            isEmpty: () => true,
+            array: () => []
+        },
+        account_email: ""
     })
 }
 
@@ -27,11 +33,26 @@ async function registerAccount(req, res) {
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
 
+    let hashedPassword
+    try {
+        hashedPassword = await bcrypt.hash(account_password, 10)
+    } catch (error) {
+        req.flash("notice", 'Sorry, there was an error processing the registration.')
+        return res.status(500).render("account/registration", {
+            title: "Registration",
+            nav,
+            errors: {
+                isEmpty: () => true,
+                array: () => []
+            }
+        })
+    }
+
     const regResult = await accountModel.registerAccount(
         account_firstname,
         account_lastname,
         account_email,
-        account_password
+        hashedPassword
     )
 
     if (regResult) {
@@ -39,14 +60,19 @@ async function registerAccount(req, res) {
             "notice",
             `Congratulations, you're registered ${account_firstname}. Please log in.`
         )
-        res.status(201).render("account/login", {
+        return res.status(201).render("account/login", {
             title: "Login",
             nav,
-            flashMessages: req.flash()
+            flashMessages: req.flash(),
+            errors: {
+                isEmpty: () => true,
+                array: () => []
+            },
+            account_email: ""
         })
     } else {
         req.flash("notice", "Sorry, the registration failed.")
-        res.status(501).render("account/registration", {
+        return res.status(501).render("account/registration", {
             title: "Registration",
             nav,
             flashMessages: req.flash(),
@@ -61,8 +87,15 @@ async function registerAccount(req, res) {
     }
 }
 
+//Login process function
+async function loginAccount(req, res) {
+    req.flash("notice", "Login successful");
+    res.redirect("/");
+}
+
 module.exports = {
     buildLogin,
     buildRegister,
     registerAccount,
+    loginAccount
 }

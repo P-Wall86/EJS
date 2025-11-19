@@ -2,33 +2,47 @@
     <%= title %>
 </h1>
 
-<!-- Flash Messages -->
-<% if (flashMessages && flashMessages.notice) { %>
-    <% flashMessages.notice.forEach(msg=> { %>
-        <div class="alert alert-info">
-            <%= msg %>
-        </div>
-        <% }) %>
-            <% } %>
+<!-- Display validation errors here -->
+<% if (errors && !errors.isEmpty()) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error=> { %>
+            <% if (error.msg !=='Invalid value' ) { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% } %>
+                    <% }) %>
+    </ul>
+    <% } %>
 
-                <form action="/account/login" method="POST" class="login-form">
+        <!-- Flash Messages -->
+        <% if (flashMessages && flashMessages.notice) { %>
+            <% flashMessages.notice.forEach(msg=> { %>
+                <div class="alert alert-info">
+                    <%= msg %>
+                </div>
+                <% }) %>
+                    <% } %>
 
-                    <label for="account_email">Email</label>
-                    <input type="email" id="account_email" name="account_email" required>
+                        <form action="/account/login" method="POST" class="login-form" id="loginForm">
 
-                    <label for="account_password">Password</label>
+                            <label for="account_email">Email</label>
+                            <input type="email" id="account_email" name="account_email" required>
 
-                    <span class="password-requirements">
-                        Password must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1
-                        special character.
-                    </span>
+                            <label for="account_password">Password</label>
 
-                    <input type="password" id="account_password" name="account_password" required
-                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                            <span class="password-requirements">
+                                Password must be at least 12 characters and contain at least 1 number, 1 capital letter,
+                                and 1
+                                special character.
+                            </span>
 
-                    <button type="submit">Login</button>
-                </form>
+                            <input type="password" id="account_password" name="account_password" required
+                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
 
-                <p class="register-link">
-                    No account? <a href="/account/registration">Sign up</a>
-                </p>
+                            <button type="submit">Login</button>
+                        </form>
+
+                        <p class="register-link">
+                            No account? <a href="/account/registration">Sign up</a>
+                        </p>
