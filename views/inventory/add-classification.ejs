@@ -1,0 +1,35 @@
+<h1>
+    <%= title %>
+</h1>
+
+<!-- Server-side validation errors -->
+<% if (errors && !errors.isEmpty()) { %>
+    <ul class="flash-messages">
+        <% errors.array().forEach(error=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% } %>
+
+        <!-- Flash messages -->
+        <% if (messages && messages.notice) { %>
+            <% messages.notice.forEach(msg=> { %>
+                <div class="flash-messages">
+                    <%= msg %>
+                </div>
+                <% }) %>
+                    <% } %>
+
+                        <form action="/inv/add-classification" method="POST" id="classificationForm" class="login-form">
+
+                            <label for="classification_name">Classification Name</label>
+
+                            <span class="input-hint">Name must contain alphabetic characters only</span>
+
+                            <input type="text" id="classification_name" name="classification_name" required
+                                pattern="^[A-Za-z]+$" value="<%= classification_name || '' %>">
+
+                            <button type="submit">Add Classification</button>
+                        </form>

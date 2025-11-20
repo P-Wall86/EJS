@@ -24,6 +24,30 @@ Util.getNav = async function () {
     return list
 }
 
+/* ************************
+ * Build the classification select list
+ ************************** */
+Util.buildClassificationList = async function (classification_id = null) {
+    let data = await invModel.getClassifications()
+    let classificationList =
+        '<select name="classification_id" id="classificationList" required>'
+    classificationList += "<option value=''>Choose a Classification</option>"
+
+    data.rows.forEach((row) => {
+        classificationList += '<option value="' + row.classification_id + '"'
+        if (
+            classification_id != null &&
+            row.classification_id == classification_id
+        ) {
+            classificationList += " selected "
+        }
+        classificationList += ">" + row.classification_name + "</option>"
+    })
+
+    classificationList += "</select>"
+    return classificationList
+}
+
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
@@ -73,7 +97,7 @@ Util.buildItemHTML = function (vehicle) {
             <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
 
             <p class="price">
-               Price: $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}
+            Price: $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}
             </p>
 
             <p><strong>Description:</strong> ${vehicle.inv_description}</p>

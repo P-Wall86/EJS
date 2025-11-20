@@ -2,17 +2,83 @@
 const express = require("express")
 const router = new express.Router()
 const invController = require("../controllers/invController")
+const invValidate = require("../utilities/inventory-validation")
 const utilities = require("../utilities")
 
-// Wrap all asynchronous route handlers with the error handling middleware (handleErrors)
+// Existing routes
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
-router.get('/detail/:id', utilities.handleErrors(invController.buildDetailView))
+router.get("/detail/:id", utilities.handleErrors(invController.buildDetailView))
 
-// Test route with an intentional error
-router.get('/test-error', (req, res, next) => {
-    const err = new Error('Intentional server error for testing')
+// Test route
+router.get("/test-error", (req, res, next) => {
+    const err = new Error("Intentional server error for testing")
     err.status = 500
     next(err)
 })
+
+// Inventory Management View
+router.get("/", async (req, res) => {
+    let nav = await utilities.getNav()
+    res.render("inventory/management", {
+        title: "Vehicle Management",
+        nav,
+        messages: req.flash()
+    })
+})
+
+// Show the classification form
+router.get("/add-classification", async (req, res) => {
+    let nav = await utilities.getNav()
+    res.render("inventory/add-classification", {
+        title: "New Classification",
+        nav,
+        errors: null,
+        messages: req.flash(),
+        classification_name: '',
+    })
+})
+
+// Process the classification form
+router.post(
+    "/add-classification",
+    (req, res, next) => {
+        console.log("POST RECEIVED!", req.body);
+        next();
+    },
+    invValidate.classificationRules(),
+    invValidate.checkClassificationData,
+    utilities.handleErrors(invController.addClassification)
+);
+
+// Show Add Inventory Form
+router.get("/add-inventory", async (req, res) => {
+    let nav = await utilities.getNav()
+    let classificationList = await utilities.buildClassificationList()
+
+    res.render("inventory/add-inventory", {
+        title: "New Vehicle",
+        nav,
+        errors: null,
+        messages: req.flash(),
+        classificationList,
+        inv_make: "",
+        inv_model: "",
+        inv_year: "",
+        inv_description: "",
+        inv_image: "",
+        inv_thumbnail: "",
+        inv_price: "",
+        inv_miles: "",
+        inv_color: ""
+    })
+})
+
+// Process the inventory form
+router.post(
+    "/add-inventory",
+    invValidate.inventoryRules(),
+    invValidate.checkInventoryData,
+    utilities.handleErrors(invController.addInventory)
+)
 
 module.exports = router

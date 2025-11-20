@@ -1,0 +1,16 @@
+<h1>Vehicle Management</h1>
+
+<!-- Display flash messages -->
+<% if (messages.notice) { %>
+    <% messages.notice.forEach(msg=> { %>
+        <div class="alert alert-info">
+            <%= msg %>
+        </div>
+        <% }) %>
+            <% } %>
+
+            <!-- Inventory Management Links-->
+                <ul>
+                    <li><a href="/inv/add-classification">Add a new classification</a></li>
+                    <li><a href="/inv/add-inventory">Add a new vehicle</a></li>
+                </ul>

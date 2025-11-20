@@ -11,24 +11,24 @@ validate.registrationRules = () => {
             .escape()
             .notEmpty()
             .isLength({ min: 1 })
-            .withMessage("Please provide a first name."),
+            .withMessage("• Please provide a first name."),
         body("account_lastname")
             .trim()
             .escape()
             .notEmpty()
             .isLength({ min: 2 })
-            .withMessage("Please provide a last name."),
+            .withMessage("• Please provide a last name."),
         body("account_email")
             .trim()
             .escape()
             .notEmpty()
             .isEmail()
             .normalizeEmail()
-            .withMessage("A valid email is required.")
+            .withMessage("• A valid email is required.")
             .custom(async (account_email) => {
                 const emailExists = await accountModel.checkExistingEmail(account_email)
-                if (emailExists){
-                    throw new Error("Email exists. Please log in or use a different email")
+                if (emailExists) {
+                    throw new Error("• Email exists. Please log in or use a different email")
                 }
             }),
         body("account_password")
@@ -41,7 +41,7 @@ validate.registrationRules = () => {
                 minNumbers: 1,
                 minSymbols: 1,
             })
-            .withMessage("Password does not meet requirements."),
+            .withMessage("• Password does not meet requirements."),
     ]
 }
 
@@ -72,11 +72,11 @@ validate.loginRules = () => {
             .escape()
             .notEmpty()
             .isEmail()
-            .withMessage("A valid email is required."),
+            .withMessage("• A valid email is required."),
         body("account_password")
             .trim()
             .notEmpty()
-            .withMessage("Password is required."),
+            .withMessage("• Password is required."),
     ];
 }
 
