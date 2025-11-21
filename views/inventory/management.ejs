@@ -1,16 +1,21 @@
 <h1>Vehicle Management</h1>
 
-<!-- Display flash messages -->
-<% if (messages.notice) { %>
-    <% messages.notice.forEach(msg=> { %>
-        <div class="alert alert-info">
-            <%= msg %>
-        </div>
-        <% }) %>
-            <% } %>
+<div class="management-view">
+    <!-- Display flash messages -->
+    <% if (messages.success) { %>
+        <% messages.success.forEach(msg=> { %>
+            <div class="alert-success">
+                <%= msg %>
+            </div>
+            <% }) %>
+                <% } %>
 
-            <!-- Inventory Management Links-->
-                <ul>
-                    <li><a href="/inv/add-classification">Add a new classification</a></li>
-                    <li><a href="/inv/add-inventory">Add a new vehicle</a></li>
-                </ul>
+                    <% if (messages.error) { %>
+                        <% } %>
+
+                            <!-- Inventory Management Links-->
+                            <ul>
+                                <li><a href="/inv/add-classification">Add a new classification</a></li>
+                                <li><a href="/inv/add-inventory">Add a new vehicle</a></li>
+                            </ul>
+</div>

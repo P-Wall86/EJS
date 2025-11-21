@@ -11,7 +11,7 @@ validate.classificationRules = () => {
             .isLength({ min: 1 })
             .withMessage('• A name is required')
             .matches(/^[A-Za-z0-9]+$/)
-            .withMessage('• The name cannot contain spaces or special characters'),
+            .withMessage('• The name cannot contain spaces, special characters or numbers.'),
     ]
 }
 
@@ -45,7 +45,7 @@ validate.inventoryRules = () => {
         body("inv_description").trim().isLength({ min: 1 }).withMessage("• Description is required."),
         body("inv_price").isFloat({ min: 0 }).withMessage("• Price must be a positive number."),
         body("inv_miles").isInt({ min: 0 }).withMessage("• Miles must be a positive integer."),
-        body("inv_color").trim().isLength({ min: 1 }).withMessage("• Color is required."),
+        body("inv_color").trim().isLength({ min: 1 }).matches(/^[A-Za-z\s]+$/).withMessage("• Color is required."),
         body("classification_id").isInt().withMessage("• Classification is required.")
     ]
 }

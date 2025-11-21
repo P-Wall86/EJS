@@ -56,7 +56,7 @@ invCont.addClassification = async (req, res) => {
         const result = await invModel.insertClassification(classificationName);
         if (result) {
             const nav = await utilities.getNav();
-            req.flash('notice', `Classification "${classificationName}" added successfully!`);
+            req.flash('success', `Classification "${classificationName}" added successfully!`);
             return res.redirect('/inv');
         } else {
             throw new Error('Insertion failed');
@@ -105,7 +105,7 @@ invCont.addInventory = async function (req, res) {
     )
 
     if (addResult) {
-        req.flash("notice", "Vehicle added successfully!")
+        req.flash("success", "Vehicle added successfully!")
         return res.redirect("/inv")
     } else {
         req.flash("notice", "Failed to add vehicle.")

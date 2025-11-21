@@ -11,12 +11,14 @@ validate.registrationRules = () => {
             .escape()
             .notEmpty()
             .isLength({ min: 1 })
+            .matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/)
             .withMessage("• Please provide a first name."),
         body("account_lastname")
             .trim()
             .escape()
             .notEmpty()
             .isLength({ min: 2 })
+            .matches(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/)
             .withMessage("• Please provide a last name."),
         body("account_email")
             .trim()
