@@ -1,0 +1,30 @@
+<h1>
+    <%= title %>
+</h1>
+
+<% if (errors && !errors.isEmpty()) { %>
+    <ul class="flash-messages">
+        <% errors.array().forEach(error=> { %>
+            <% if (error.msg !=='Invalid value' ) { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% } %>
+                    <% }) %>
+    </ul>
+    <% } %>
+
+        <% if (flashMessages && flashMessages.notice) { %>
+            <% flashMessages.notice.forEach(msg=> { %>
+                <div class="alert alert-info">
+                    <%= msg %>
+                </div>
+                <% }) %>
+                    <% } %>
+
+                        <div class="account-management-view">
+                            <h2>Welcome to your Account Dashboard</h2>
+                            <p>You're logged in</p>
+
+                            <p>From here, you can manage your personal information.</p>
+                        </div>
