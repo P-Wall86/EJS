@@ -34,7 +34,9 @@ router.post(
 
 // Account Management
 router.get(
-    "/",
+    "/", 
+    utilities.checkJWTToken,
+    utilities.checkLogin,
     utilities.handleErrors(accountController.buildAccountManagement)
 )
 
