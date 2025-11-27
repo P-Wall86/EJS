@@ -123,7 +123,70 @@ invCont.addInventory = async function (req, res) {
     }
 }
 
+/* ***************************
+ *  Update Inventory Data
+ * ************************** */
+invCont.updateInventory = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    const {
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id,
+    } = req.body
 
+    const updateResult = await invModel.updateInventory(
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+        classification_id
+    )
+
+    if (updateResult) {
+        const itemName = updateResult.inv_make + " " + updateResult.inv_model
+        req.flash("success", `The ${itemName} was successfully updated.`)
+        res.redirect("/inv/")
+    } else {
+        const classificationSelect = await utilities.buildClassificationList(classification_id)
+        const itemName = `${inv_make} ${inv_model}`
+        req.flash("error", "Sorry, the update failed.")
+        res.status(501).render("inventory/edit-inventory", {
+            title: "Edit " + itemName,
+            nav,
+            classificationList: classificationSelect,
+            errors: null,
+            inv_id,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id
+        })
+    }
+}
+
+/* ***************************
+ *  Build management view
+ * ************************** */
 invCont.buildManagementView = async function (req, res, next) {
     let nav = await utilities.getNav()
     const classificationList = await utilities.buildClassificationList()
@@ -132,6 +195,7 @@ invCont.buildManagementView = async function (req, res, next) {
         nav,
         errors: null,
         classificationList,
+        messages: req.flash()
     })
 }
 
@@ -164,9 +228,9 @@ invCont.buildEditInventoryView = async function (req, res, next) {
 
     const itemData = await invModel.getInventoryItemById(inv_id)
 
-    if (!itemData) { 
+    if (!itemData) {
         req.flash("notice", "Sorry, no vehicle data was found.")
-        return res.redirect("/inv/") 
+        return res.redirect("/inv/")
     }
 
     const classificationList = await utilities.buildClassificationList(itemData.inv_classification_id)
@@ -189,7 +253,7 @@ invCont.buildEditInventoryView = async function (req, res, next) {
         inv_price: itemData.inv_price,
         inv_miles: itemData.inv_miles,
         inv_color: itemData.inv_color,
-        inv_classification_id: itemData.inv_classification_id 
+        inv_classification_id: itemData.inv_classification_id
     })
 }
 

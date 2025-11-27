@@ -1,85 +1,90 @@
 <h1>
-<%= title %>
+    <%= title %>
 </h1>
 
 <!-- Server-side validation errors -->
 
 <% if (errors && !errors.isEmpty()) { %>
 
-<ul class="flash-messages">
-<% errors.array().forEach(error=> { %>
-<li>
-<%= error.msg %>
-</li>
-<% }) %>
-</ul>
-<% } %>
+    <ul class="flash-messages">
+        <% errors.array().forEach(error=> { %>
+            <li>
+                <%= error.msg %>
+            </li>
+            <% }) %>
+    </ul>
+    <% } %>
 
-<!-- Flash messages -->
+        <!-- Flash messages -->
 
-<% if (messages && messages.notice) { %>
-<% messages.notice.forEach(msg=> { %>
+        <% if (messages && messages.notice) { %>
+            <% messages.notice.forEach(msg=> { %>
 
-<div class="alert-info">
-<%= msg %>
-</div>
-<% }) %>
-<% } %>
-
-
-<form action="/inv/update" method="POST" id="updateInventoryForm" class="register-form">
-
-    <p>* All fields are required</p>
-
-    <label for="classification_id">Classification</label>
-
-    <%- classificationList %>
-
-    <label for="inv_make">Make</label>
-
-    <input type="text" id="inv_make" name="inv_make" required placeholder="Min 3 characters"
-        pattern="^[A-Za-z ]{3,}$" title="At least 3 characters. Letters, numbers, and spaces only."
-        value="<%= inv_make %>">
-
-    <label for="inv_model">Model</label>
-    <input type="text" id="inv_model" name="inv_model" required placeholder="Min 3 characters"
-        title="At least 3 characters. Letters, numbers, and spaces only." value="<%= inv_model %>">
-
-    <label for="inv_year">Year</label>
-    <input type="text" id="inv_year" name="inv_year" required placeholder="4-digit year"
-        pattern="^(18[0-9]{2}|19[0-9]{2}|20[0-9]{2}|2100)$"
-        title="Enter a valid 4-digit year between 1800 and 2100." value="<%= inv_year %>">
-
-    <label for="inv_description">Description</label>
-    <textarea id="inv_description" name="inv_description" required
-        placeholder="Brief description of the vehicle"><%= inv_description %></textarea>
-
-    <label for="inv_image">Image Path</label>
-    <input type="text" id="inv_image" name="inv_image" required
-        placeholder="/images/vehicles/example.jpg" pattern="^\/images\/vehicles\/.+"
-        title="Path must begin with /images/vehicles/" value="<%= inv_image %>">
-
-    <label for="inv_thumbnail">Thumbnail Path</label>
-    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
-        placeholder="/images/vehicles/example-tn.jpg" pattern="^\/images\/vehicles\/.+"
-        title="Path must begin with /images/vehicles/" value="<%= inv_thumbnail %>">
-
-    <label for="inv_price">Price</label>
-    <input type="number" id="inv_price" name="inv_price" required
-        placeholder="Decimal or integer" min="0" step="0.01"
-        title="Only positive numbers allowed. Decimals permitted." value="<%= inv_price %>">
-
-    <label for="inv_miles">Miles</label>
-    <input type="text" id="inv_miles" name="inv_miles" required placeholder="Digits only" pattern="^\d+$"
-        title="Only digits allowed." value="<%= inv_miles %>">
-
-    <label for="inv_color">Color</label>
-    <input type="text" id="inv_color" name="inv_color" required pattern="^[A-Za-z\s]+$"
-        title="Letters and spaces only. Minimum 3 characters." value="<%= inv_color %>">
-    
-    <input type="hidden" name="inv_id" value="<%= inv_id %>">
-    <input type="hidden" name="inv_classification_id" value="<%= inv_classification_id %>">
+                <div class="alert-info">
+                    <%= msg %>
+                </div>
+                <% }) %>
+                    <% } %>
 
 
-    <button type="submit">Update Vehicle</button>
-</form>
+                        <form action="/inv/update" method="POST" id="updateInventoryForm" class="register-form">
+
+                            <p>* All fields are required</p>
+
+                            <label for="classification_id">Classification</label>
+
+                            <%- classificationList %>
+
+                                <label for="inv_make">Make</label>
+
+                                <input type="text" id="inv_make" name="inv_make" required placeholder="Min 3 characters"
+                                    pattern="^[A-Za-z ]{3,}$"
+                                    title="At least 3 characters. Letters, numbers, and spaces only."
+                                    value="<%= inv_make %>">
+
+                                <label for="inv_model">Model</label>
+                                <input type="text" id="inv_model" name="inv_model" required
+                                    placeholder="Min 3 characters"
+                                    title="At least 3 characters. Letters, numbers, and spaces only."
+                                    value="<%= inv_model %>">
+
+                                <label for="inv_year">Year</label>
+                                <input type="text" id="inv_year" name="inv_year" required placeholder="4-digit year"
+                                    pattern="^(18[0-9]{2}|19[0-9]{2}|20[0-9]{2}|2100)$"
+                                    title="Enter a valid 4-digit year between 1800 and 2100." value="<%= inv_year %>">
+
+                                <label for="inv_description">Description</label>
+                                <textarea id="inv_description" name="inv_description" required
+                                    placeholder="Brief description of the vehicle"><%= inv_description %></textarea>
+
+                                <label for="inv_image">Image Path</label>
+                                <input type="text" id="inv_image" name="inv_image" required
+                                    placeholder="/images/vehicles/example.jpg" pattern="^\/images\/vehicles\/.+"
+                                    title="Path must begin with /images/vehicles/" value="<%= inv_image %>">
+
+                                <label for="inv_thumbnail">Thumbnail Path</label>
+                                <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
+                                    placeholder="/images/vehicles/example-tn.jpg" pattern="^\/images\/vehicles\/.+"
+                                    title="Path must begin with /images/vehicles/" value="<%= inv_thumbnail %>">
+
+                                <label for="inv_price">Price</label>
+                                <input type="number" id="inv_price" name="inv_price" required
+                                    placeholder="Decimal or integer" min="0" step="0.01"
+                                    title="Only positive numbers allowed. Decimals permitted." value="<%= inv_price %>">
+
+                                <label for="inv_miles">Miles</label>
+                                <input type="text" id="inv_miles" name="inv_miles" required placeholder="Digits only"
+                                    pattern="^\d+$" title="Only digits allowed." value="<%= inv_miles %>">
+
+                                <label for="inv_color">Color</label>
+                                <input type="text" id="inv_color" name="inv_color" required pattern="^[A-Za-z\s]+$"
+                                    title="Letters and spaces only. Minimum 3 characters." value="<%= inv_color %>">
+
+                                <input type="hidden" name="inv_id" value="<%= inv_id %>">
+                                <input type="hidden" name="inv_classification_id" value="<%= inv_classification_id %>">
+
+
+                                <button type="submit" disabled>Update Vehicle</button>
+                        </form>
+
+<script src="/js/inv-update.js"></script>

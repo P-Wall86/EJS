@@ -10,20 +10,36 @@
             <% }) %>
                 <% } %>
 
-                    <% if (messages.error) { %>
-                        <% } %>
+                    <!-- Notice / Info messages -->
+                    <% if (messages.notice) { %>
+                        <% messages.notice.forEach(msg=> { %>
+                            <div class="alert-info">
+                                <%= msg %>
+                            </div>
+                            <% }) %>
+                                <% } %>
 
-                            <!-- Inventory Management Links-->
-                            <ul>
-                                <li><a href="/inv/add-classification">Add a new classification</a></li>
-                                <li><a href="/inv/add-inventory">Add a new vehicle</a></li>
-                            </ul>
+                                    <!-- Error messages -->
+                                    <% if (messages.error) { %>
+                                        <% messages.error.forEach(msg=> { %>
+                                            <div class="flash-messages">
+                                                <%= msg %>
+                                            </div>
+                                            <% }) %>
+                                                <% } %>
+
+                                                    <!-- Inventory Management Links-->
+                                                    <ul>
+                                                        <li><a href="/inv/add-classification">Add a new
+                                                                classification</a></li>
+                                                        <li><a href="/inv/add-inventory">Add a new vehicle</a></li>
+                                                    </ul>
 </div>
 
 <!-- Inventory Management Grid -->
 <div class="management-header">
-<h2>Manage Inventory</h2>
-<p>Select a classification from the list to see the items belonging to the classification.</p>
+    <h2>Manage Inventory</h2>
+    <p>Select a classification from the list to see the items belonging to the classification.</p>
 </div>
 
 <div class="management-view">
