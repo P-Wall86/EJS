@@ -77,4 +77,10 @@ router.post(
 // Get inventory JSON
 router.get("/getInventory/:classificationId", utilities.handleErrors(invController.getInventoryJSON))
 
+// Show Edit Inventory Form
+router.get(
+    "/edit/:inventory_id",
+    utilities.handleErrors(invController.buildEditInventoryView)
+)
+
 module.exports = router
