@@ -17,14 +17,7 @@ router.get("/test-error", (req, res, next) => {
 })
 
 // Inventory Management View
-router.get("/", async (req, res) => {
-    let nav = await utilities.getNav()
-    res.render("inventory/management", {
-        title: "Vehicle Management",
-        nav,
-        messages: req.flash()
-    })
-})
+router.get("/", utilities.checkLogin, utilities.handleErrors(invController.buildManagementView))
 
 // Show the classification form
 router.get("/add-classification", async (req, res) => {
@@ -80,5 +73,8 @@ router.post(
     invValidate.checkInventoryData,
     utilities.handleErrors(invController.addInventory)
 )
+
+// Get inventory JSON
+router.get("/getInventory/:classificationId", utilities.handleErrors(invController.getInventoryJSON))
 
 module.exports = router
