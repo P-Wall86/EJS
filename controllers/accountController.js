@@ -148,10 +148,24 @@ async function buildAccountManagement(req, res, next) {
     })
 }
 
+async function buildUpdateAccountView(req, res, next) {
+    const accountId = parseInt(req.params.accountId);
+    let nav = await utilities.getNav();
+    
+    res.render("account/update-account", { 
+        title: "Update Account Information",
+        nav,
+        messages: req.flash(),
+        accountData: res.locals.accountData, 
+        errors: null,
+    });
+}
+
 module.exports = {
     buildLogin,
     buildRegister,
     registerAccount,
     accountLogin,
-    buildAccountManagement
+    buildAccountManagement,
+    buildUpdateAccountView
 }

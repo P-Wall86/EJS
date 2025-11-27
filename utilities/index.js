@@ -127,7 +127,13 @@ Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
 Util.checkJWTToken = (req, res, next) => {
+    res.locals.loggedin = 0;
+    res.locals.accountData = null;
+
     if (req.cookies.jwt) {
         jwt.verify(
             req.cookies.jwt,
@@ -156,6 +162,26 @@ Util.checkLogin = (req, res, next) => {
     } else {
         req.flash("notice", "Please log in.")
         return res.redirect("/account/login")
+    }
+}
+
+/* ****************************************
+* Middleware to check account type
+**************************************** */
+Util.checkAccountType = (req, res, next) => {
+    if (res.locals.loggedin && res.locals.accountData) {
+        const accountType = res.locals.accountData.account_type;
+
+        if (accountType === "Employee" || accountType === "Admin") {
+            next();
+            return;
+        } else {
+            req.flash("notice", "Access Denied: You do not have the required permissions.");
+            return res.redirect("/"); 
+        }
+    } else {
+        req.flash("notice", "Please log in to access administrative tools.");
+        return res.redirect("/account/login");
     }
 }
 

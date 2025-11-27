@@ -40,4 +40,11 @@ router.get(
     utilities.handleErrors(accountController.buildAccountManagement)
 )
 
+// Update Account
+router.get(
+    "/update/:accountId", 
+    utilities.checkLogin, 
+    utilities.handleErrors(accountController.buildUpdateAccountView)
+)
+
 module.exports = router

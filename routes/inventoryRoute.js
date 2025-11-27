@@ -20,7 +20,7 @@ router.get("/test-error", (req, res, next) => {
 router.get("/", utilities.checkLogin, utilities.handleErrors(invController.buildManagementView))
 
 // Show the classification form
-router.get("/add-classification", async (req, res) => {
+router.get("/add-classification", utilities.checkAccountType, async (req, res) => {
     let nav = await utilities.getNav()
     res.render("inventory/add-classification", {
         title: "New Classification",
@@ -33,7 +33,7 @@ router.get("/add-classification", async (req, res) => {
 
 // Process the classification form
 router.post(
-    "/add-classification",
+    "/add-classification", utilities.checkAccountType,
     (req, res, next) => {
         console.log("POST RECEIVED!", req.body);
         next();
@@ -44,7 +44,7 @@ router.post(
 );
 
 // Show Add Inventory Form
-router.get("/add-inventory", async (req, res) => {
+router.get("/add-inventory", utilities.checkAccountType, async (req, res) => {
     let nav = await utilities.getNav()
     let classificationList = await utilities.buildClassificationList()
 
@@ -69,6 +69,7 @@ router.get("/add-inventory", async (req, res) => {
 // Process the inventory form
 router.post(
     "/add-inventory",
+    utilities.checkAccountType, 
     invValidate.inventoryRules(),
     invValidate.checkInventoryData,
     utilities.handleErrors(invController.addInventory)
