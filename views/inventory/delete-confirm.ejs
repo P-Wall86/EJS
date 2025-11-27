@@ -1,0 +1,44 @@
+<h1>
+    <%= title %>
+</h1>
+
+<!-- Flash messages -->
+
+<% if (messages && messages.notice) { %>
+    <% messages.notice.forEach(msg=> { %>
+        <div class="alert-info">
+            <%= msg %>
+        </div>
+        <% }) %>
+            <% } %>
+
+                <% if (messages && messages.error) { %>
+                    <% messages.error.forEach(msg=> { %>
+                        <div class="alert-error">
+                            <%= msg %>
+                        </div>
+                        <% }) %>
+                            <% } %>
+
+                                <form action="/inv/delete" method="POST" id="deleteInventoryForm" class="register-form">
+
+                                    <p>CONFIRM DELETION: This action is permanent and cannot be undone.</p>
+
+                                    <label for="inv_make">Make</label>
+                                    <input type="text" id="inv_make" name="inv_make" readonly value="<%= inv_make %>">
+
+                                    <label for="inv_model">Model</label>
+                                    <input type="text" id="inv_model" name="inv_model" readonly
+                                        value="<%= inv_model %>">
+
+                                    <label for="inv_year">Year</label>
+                                    <input type="text" id="inv_year" name="inv_year" readonly value="<%= inv_year %>">
+
+                                    <label for="inv_price">Price</label>
+                                    <input type="text" id="inv_price" name="inv_price" readonly
+                                        value="$<%= Number(inv_price).toLocaleString("en-US")%>">
+
+                                    <input type="hidden" name="inv_id" value="<%= inv_id %>">
+
+                                    <button type="submit">Delete Vehicle</button>
+                                </form>

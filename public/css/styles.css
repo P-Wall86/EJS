@@ -739,6 +739,13 @@ button:not([disabled]):hover {
   cursor: pointer;
 }
 
+.register-form p {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(182, 19, 19);
+}
+
 /* ****** Desktop Query ****** */
 @media only screen and (min-width: 768px) {
 

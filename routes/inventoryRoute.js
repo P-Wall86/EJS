@@ -83,9 +83,24 @@ router.get(
     utilities.handleErrors(invController.buildEditInventoryView)
 )
 
+// Process the inventory form
 router.post("/update/",
     invValidate.inventoryRules(),
     invValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory))
+
+//Show Delete Confirmation
+router.get(
+    "/delete/:inventory_id",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.buildDeleteInventoryView)
+);
+
+//Process Delete
+router.post(
+    "/delete",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.deleteInventory)
+);
 
 module.exports = router
