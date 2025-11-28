@@ -23,7 +23,8 @@ body {
   padding: 0;
 }
 
-body h1, .management-header {
+body h1,
+.management-header {
   padding-left: 0.5rem;
 }
 
@@ -41,6 +42,12 @@ body h1, .management-header {
   text-decoration: none;
   font-weight: 600;
   color: #111;
+}
+
+#tools {
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 #tools a {
@@ -630,6 +637,24 @@ textarea {
   padding: 24px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+.management-view .section-title {
+  font-size: 1.55rem;
+  font-weight: bold;
+  margin: 10px 0 5px 0;
+  padding-left: 0;
+  text-align: left;
+  color: #222;
+  letter-spacing: 0.3px;
+}
+
+.management-view p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 5px 0 10px 0;
+  font-style: italic;
 }
 
 .management-view ul {
@@ -638,26 +663,55 @@ textarea {
   margin: 0;
   display: flex;
   flex-direction: column;
+}
+
+.management-view .welcome-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 30px 20px;
+  width: calc(100% - 2rem);
+  max-width: 400px;
+}
+
+.management-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.management-view ul li a {
+.management-links li a {
   display: block;
-  padding: 10px 15px;
+  padding: 12px;
   background-color: #f0f0f0;
   border: 1px solid #ddd;
   border-radius: 4px;
   text-decoration: none;
   color: #000;
   font-weight: 600;
-  transition: background-color 0.2s;
-  text-align: left;
+  transition: 0.2s;
 }
 
-.management-view ul li a:hover {
+.management-links li a:hover {
   background-color: #333;
   color: #fff;
-  border: 1px solid #333;
+  border-color: #333;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 10px 0 8px 0;
+  padding-left: 0.5rem;
+  color: #222;
 }
 
 #classification_id {
@@ -729,7 +783,7 @@ button[disabled] {
   color: #aaa;
   cursor: not-allowed;
   border: 1px solid #444;
-  opacity: 0.7;           
+  opacity: 0.7;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -744,6 +798,48 @@ button:not([disabled]):hover {
   font-weight: bold;
   text-align: center;
   color: rgb(182, 19, 19);
+}
+
+.register-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.register-form.update-forms-container hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+.register-form.update-forms-container h2 {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 10px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.register-form.update-forms-container p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.register-form.update-forms-container p.password-requirements {
+  color: rgb(182, 19, 19);
+}
+
+.management-view .manager-tip {
+  font-style: italic;
+  margin-bottom: 15px;
+  color: #303030;
+}
+
+.management-view h2 {
+  font-size: 1.3rem;
+  margin-top: -10px;
+  margin-bottom: 5px;
 }
 
 /* ****** Desktop Query ****** */
@@ -1105,6 +1201,68 @@ button:not([disabled]):hover {
   .register-link,
   .login-link {
     font-size: 1.1rem;
+  }
+
+  #tools {
+    gap: 25px;
+  }
+
+  .register-form.update-forms-container,
+  .management-view {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px !important;
+    background: #fff;
+  }
+
+  .register-form.update-forms-container h1 {
+    text-align: center;
+  }
+
+  .management-view h2,
+  .management-view .section-title {
+    text-align: center;
+    padding-left: 0;
+    margin-bottom: 20px;
+  }
+
+  .management-links li a,
+  .management-view ul li a {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .management-links {
+    max-width: 500px;
+    margin: 20px auto 40px auto;
+  }
+
+  .management-links li a {
+    padding: 15px 18px;
+    border-radius: 6px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2,
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .section-title {
+    margin-top: 20px;
+  }
+
+  .management-view p {
+    font-size: 1rem;
+  }
+
+  .management-links li a {
+    font-size: 1rem;
+    padding: 14px;
   }
 }
 

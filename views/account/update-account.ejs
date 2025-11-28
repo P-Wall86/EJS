@@ -1,0 +1,92 @@
+<div class="register-form update-forms-container">
+
+    <% if (title) { %>
+        <h1>
+            <%= title %>
+        </h1>
+    <% } %>
+
+    <!-- Validation errors (Usando la misma clase de lista que se ve como el flash-messages de error) -->
+    <% if (errors && !errors.isEmpty()) { %>
+        <ul class="error-list">
+            <% errors.array().forEach(error=> { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <!-- Flash messages (Usando la clase de alerta existente) -->
+    <% if (messages && messages.notice) { %>
+        <% messages.notice.forEach(msg=> { %>
+            <div class="alert alert-info">
+                <%= msg %>
+            </div>
+        <% }) %>
+    <% } %>
+
+    <section id="account-update-section">
+        <h2>Account Update</h2>
+        <p>Use this form to update your first name, last name, and email address.</p>
+
+        <!-- Se omite una clase de formulario aquí ya que el layout lo maneja el padre .register-form -->
+        <form id="accountUpdateForm" action="/account/update" method="post">
+
+            <label for="account_firstname">First Name (Required)</label>
+            <input type="text" id="account_firstname" name="account_firstname" required
+                value="<%= locals.accountData.account_firstname %>"
+                autocomplete="given-name">
+
+            <label for="account_lastname">Last Name (Required)</label>
+            <input type="text" id="account_lastname" name="account_lastname" required
+                value="<%= locals.accountData.account_lastname %>"
+                autocomplete="family-name">
+
+            <label for="account_email">Email Address (Required)</label>
+            <input type="email" id="account_email" name="account_email" required
+                value="<%= locals.accountData.account_email %>" autocomplete="email">
+
+            <!-- Hidden Field: account_id -->
+            <input type="hidden" name="account_id"
+                value="<%= locals.accountData.account_id %>">
+
+            <!-- El botón hereda el estilo de .register-form button -->
+            <button type="submit">Update Account</button>
+        </form>
+
+    </section>
+
+    <hr class="form-divider">
+
+    <section id="password-change-section">
+        <h2>Change Password</h2>
+        <p>Use this form to change your account password.</p>
+
+        <form id="passwordChangeForm" action="/account/change-password" method="post">
+
+            <!-- Mensaje de advertencia, usando la clase existente .password-requirements -->
+            <p class="password-requirements">
+                <strong>Warning:</strong> Entering a new password will immediately
+                change your current password.
+                It must be at least 12 characters long, contain 1 uppercase letter, 1
+                number, and 1 special character.
+            </p>
+
+            <label for="account_password">New Password (Required)</label>
+            <input type="password" id="account_password" name="account_password"
+                required
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+                title="Password must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character."
+                autocomplete="new-password">
+
+            <!-- Hidden Field: account_id -->
+            <input type="hidden" name="account_id"
+                value="<%= locals.accountData.account_id %>">
+
+            <!-- El botón hereda el estilo de .register-form button -->
+            <button type="submit">Change Password</button>
+        </form>
+    </section>
+
+</div>

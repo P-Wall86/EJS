@@ -1,42 +1,62 @@
-<% const account=locals.accountData; const isInventoryManager=account && (account.account_type==="Employee" ||
-    account.account_type==="Admin" ); %>
+<% const account=locals.accountData; %>
+    <% const isInventoryManager=account && (account.account_type==="Employee" || account.account_type==="Admin" ); %>
 
-    <h1>
-        <%= title %>
-    </h1>
+        <h1>
+            <%= title %>
+        </h1>
 
-    <% if (errors && !errors.isEmpty()) { %>
-        <ul class="flash-messages">
-            <% errors.array().forEach(error=> { %>
-                <% if (error.msg !=='Invalid value' ) { %>
-                    <li>
-                        <%= error.msg %>
-                    </li>
-                    <% } %>
-                        <% }) %>
-        </ul>
-        <% } %>
+        <div class="management-view">
 
-            <% if (flashMessages && flashMessages.notice) { %>
-                <% flashMessages.notice.forEach(msg=> { %>
-                    <div class="alert alert-info">
-                        <%= msg %>
-                    </div>
-                    <% }) %>
-                        <% } %>
+            <% if (errors && !errors.isEmpty()) { %>
+                <ul class="flash-messages error-list">
+                    <% errors.array().forEach(error=> { %>
+                        <% if (error.msg !=="Invalid value" ) { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% } %>
+                                <% }) %>
+                </ul>
+                <% } %>
 
-                            <div class="account-management-view">
-                                <h2>Welcome <%= account.account_firstname %>
-                                </h2>
-                                <p><a href="/account/update/<%= account.account_id %>">Update Account Information</a>
-                                </p>
-
-                                <% if (isInventoryManager) { %>
-                                    <h3 class="inventory-management-heading">Inventory Management</h3>
-                                    <p>
-                                        <a href="/inv">Access Inventory Management View</a>
-                                    </p>
-                                    <% } %>
-
-                                        <p>From here, you can manage your personal information.</p>
+                    <% if (flashMessages && flashMessages.notice) { %>
+                        <% flashMessages.notice.forEach(msg=> { %>
+                            <div class="alert-info">
+                                <%= msg %>
                             </div>
+                            <% }) %>
+                                <% } %>
+
+                                    <p class="welcome-text">Welcome <%= account.account_firstname %>
+                                    </p>
+                                    <p>Here you can manage your personal information.</p>
+
+                                    <ul class="management-links">
+                                        <li>
+                                            <a href="/account/update/<%= account.account_id %>">
+                                                Update Account Information
+                                            </a>
+                                        </li>
+                                    </ul>
+        </div>
+
+        <% if (isInventoryManager) { %>
+
+            <hr class="section-divider">
+
+            <h2 class="section-title">Inventory Management</h2>
+
+            <div class="management-view">
+                <p class="manager-tip">
+                    You have access to additional inventory management tools.
+                </p>
+
+                <ul class="management-links">
+                    <li>
+                        <a href="/inv">Access Inventory Management</a>
+                    </li>
+                </ul>
+
+                <% } %>
+
+            </div>

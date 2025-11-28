@@ -99,4 +99,84 @@ validate.checkLoginData = async (req, res, next) => {
     next()
 }
 
+// Validation rules for account update
+validate.updateAccountRules = () => {
+    return [
+        body("account_firstname")
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Please provide a first name."),
+
+        body("account_lastname")
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage("Please provide a last name."),
+
+        body("account_email")
+            .trim()
+            .isEmail()
+            .normalizeEmail()
+            .withMessage("A valid email is required.")
+            .custom(async (account_email, { req }) => {
+                const account_id = req.body.account_id;
+                const account = await accountModel.getAccountById(account_id);
+                
+                if (account_email === account.account_email) {
+                    return true; 
+                }
+                
+                const emailExists = await accountModel.getAccountByEmail(account_email);
+                if (emailExists) {
+                    throw new Error("Email already exists. Please use a different email address.");
+                }
+            }),
+    ];
+};
+
+// Check data for account update
+validate.checkUpdateData = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        res.render("account/update-account", {
+            errors,
+            title: "Update Account Information",
+            nav,
+            accountData: req.body, 
+            messages: req.flash(),
+        });
+        return;
+    }
+    next();
+};
+
+// Validation rules for password change
+validate.changePasswordRules = () => {
+    return [
+        body("account_password")
+            .trim()
+            .isLength({ min: 12 })
+            .withMessage("Password must be at least 12 characters long.")
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$/)
+            .withMessage("Password must contain at least 1 uppercase letter, 1 number, and 1 special character."),
+    ];
+};
+
+// Check data for password change
+validate.checkPasswordData = async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        res.render("account/update-account", {
+            errors,
+            title: "Update Account Information",
+            nav,
+            accountData: req.body, 
+            messages: req.flash(),
+        });
+        return;
+    }
+    next();
+};
+
 module.exports = validate

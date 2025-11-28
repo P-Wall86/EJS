@@ -40,11 +40,35 @@ router.get(
     utilities.handleErrors(accountController.buildAccountManagement)
 )
 
-// Update Account
+// Update Account Form
 router.get(
     "/update/:accountId", 
     utilities.checkLogin, 
     utilities.handleErrors(accountController.buildUpdateAccountView)
 )
+
+// Update Account
+router.post(
+    "/update",
+    utilities.checkLogin,
+    regValidate.updateAccountRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount)
+);
+
+// Change Password
+router.post(
+    "/change-password",
+    utilities.checkLogin,
+    regValidate.changePasswordRules(),
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accountController.changePassword)
+);
+
+// Logout
+router.get(
+    "/logout", 
+    utilities.handleErrors(accountController.accountLogout)
+);
 
 module.exports = router
