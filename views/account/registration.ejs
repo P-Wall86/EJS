@@ -2,18 +2,18 @@
     <%= title %>
 </h1>
 
-<!-- Display validation errors here -->
 <% if (errors && !errors.isEmpty()) { %>
     <ul class="flash-messages">
         <% errors.array().forEach(error=> { %>
-            <% if (error.msg !== 'Invalid value') { %>
-            <li><%= error.msg %></li>
-            <% } %>
-            <% }) %>
+            <% if (error.msg !=='Invalid value' ) { %>
+                <li>
+                    <%= error.msg %>
+                </li>
+                <% } %>
+                    <% }) %>
     </ul>
     <% } %>
 
-        <!-- Flash Messages -->
         <% if (flashMessages && flashMessages.notice) { %>
             <% flashMessages.notice.forEach(msg=> { %>
                 <div class="alert alert-info">
@@ -26,15 +26,17 @@
 
                             <label for="account_firstname">First Name</label>
                             <span class="input-hint">Letters only</span>
-                            <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>" 
-                            pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$">
+                            <input type="text" id="account_firstname" name="account_firstname" required
+                                value="<%= locals.account_firstname %>" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$">
 
                             <label for="account_lastname">Last Name</label>
                             <span class="input-hint">Letters only</span>
-                            <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$">
+                            <input type="text" id="account_lastname" name="account_lastname" required
+                                value="<%= locals.account_lastname %>" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$">
 
                             <label for="account_email">Email</label>
-                            <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+                            <input type="email" id="account_email" name="account_email" required
+                                value="<%= locals.account_email %>">
 
                             <label for="account_password">Password:</label>
 

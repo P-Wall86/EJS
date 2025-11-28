@@ -2,7 +2,6 @@
     <%= title %>
 </h1>
 
-<!-- Flash messages -->
 
 <% if (messages && messages.notice) { %>
     <% messages.notice.forEach(msg=> { %>
@@ -36,7 +35,7 @@
 
                                     <label for="inv_price">Price</label>
                                     <input type="text" id="inv_price" name="inv_price" readonly
-                                        value="$<%= Number(inv_price).toLocaleString("en-US")%>">
+                                        value="$<%= Number(inv_price).toLocaleString(" en-US" )%>">
 
                                     <input type="hidden" name="inv_id" value="<%= inv_id %>">
 

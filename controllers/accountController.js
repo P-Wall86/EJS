@@ -4,6 +4,7 @@ const utilities = require("../utilities/")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
+// Account Management Login
 async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
     res.render("account/login", {
@@ -18,6 +19,7 @@ async function buildLogin(req, res, next) {
     })
 }
 
+// Account Management Registration
 async function buildRegister(req, res, next) {
     let nav = await utilities.getNav()
     res.render("account/registration", {
@@ -31,6 +33,7 @@ async function buildRegister(req, res, next) {
     })
 }
 
+// Process Account Registration
 async function registerAccount(req, res) {
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
@@ -89,7 +92,7 @@ async function registerAccount(req, res) {
     }
 }
 
-//Process login request
+// Process Account Login
 async function accountLogin(req, res) {
     let nav = await utilities.getNav()
     const { account_email, account_password } = req.body
@@ -135,6 +138,7 @@ async function accountLogin(req, res) {
     }
 }
 
+// Account Management Main View
 async function buildAccountManagement(req, res, next) {
     let nav = await utilities.getNav()
     res.render("account/management", {
@@ -148,6 +152,7 @@ async function buildAccountManagement(req, res, next) {
     })
 }
 
+// Build Update Account View
 async function buildUpdateAccountView(req, res, next) {
     const accountId = parseInt(req.params.accountId);
     let nav = await utilities.getNav();
@@ -162,14 +167,14 @@ async function buildUpdateAccountView(req, res, next) {
 }
 
 
-//Logout Process
+// Process Logout
 async function accountLogout(req, res, next) {
     res.clearCookie("jwt");
     req.flash("notice", "You have been logged out successfully.");
     res.redirect("/"); 
 }
 
-//Handle Account Data Update (Name/Email)
+// Process Account Information Update
 async function updateAccount(req, res, next) {
     const { account_firstname, account_lastname, account_email, account_id } = req.body;
     
@@ -198,7 +203,7 @@ async function updateAccount(req, res, next) {
     }
 }
 
-//Handle Password Change
+// Process Password Change
 async function changePassword(req, res, next) {
     const { account_password, account_id } = req.body;
 

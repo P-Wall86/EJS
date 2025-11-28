@@ -1,15 +1,15 @@
-// Needed Resources 
+// Required Modules 
 const express = require("express")
 const router = new express.Router()
 const invController = require("../controllers/invController")
 const invValidate = require("../utilities/inventory-validation")
 const utilities = require("../utilities")
 
-// Existing routes
+// Public Routes
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
 router.get("/detail/:id", utilities.handleErrors(invController.buildDetailView))
 
-// Test route
+// Intentional Error Route
 router.get("/test-error", (req, res, next) => {
     const err = new Error("Intentional server error for testing")
     err.status = 500
@@ -19,7 +19,7 @@ router.get("/test-error", (req, res, next) => {
 // Inventory Management View
 router.get("/", utilities.checkLogin, utilities.handleErrors(invController.buildManagementView))
 
-// Show the classification form
+// Show Classification Form
 router.get("/add-classification", utilities.checkAccountType, async (req, res) => {
     let nav = await utilities.getNav()
     res.render("inventory/add-classification", {
@@ -31,7 +31,7 @@ router.get("/add-classification", utilities.checkAccountType, async (req, res) =
     })
 })
 
-// Process the classification form
+// Process Classification Form
 router.post(
     "/add-classification", utilities.checkAccountType,
     (req, res, next) => {
@@ -66,7 +66,7 @@ router.get("/add-inventory", utilities.checkAccountType, async (req, res) => {
     })
 })
 
-// Process the inventory form
+// Process Inventory Form
 router.post(
     "/add-inventory",
     utilities.checkAccountType, 
@@ -75,7 +75,7 @@ router.post(
     utilities.handleErrors(invController.addInventory)
 )
 
-// Get inventory JSON
+// Get Inventory JSON
 router.get("/getInventory/:classificationId", utilities.handleErrors(invController.getInventoryJSON))
 
 // Show Edit Inventory Form
@@ -84,13 +84,13 @@ router.get(
     utilities.handleErrors(invController.buildEditInventoryView)
 )
 
-// Process the inventory form
+// Process Inventory Form
 router.post("/update/",
     invValidate.inventoryRules(),
     invValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory))
 
-//Show Delete Confirmation
+// Show Delete Confirmation
 router.get(
     "/delete/:inventory_id",
     utilities.checkLogin,

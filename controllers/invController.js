@@ -3,9 +3,7 @@ const utilities = require("../utilities/")
 
 const invCont = {}
 
-/* ***************************
- *  Build inventory by classification view
- * ************************** */
+// Build inventory by classification view
 invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
@@ -24,9 +22,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     });
 };
 
-/* ***************************************** *
- *  Build detail view for a specific vehicle *
- * ***************************************** */
+// Build detail view for a specific vehicle
 invCont.buildDetailView = async function (req, res, next) {
     try {
         const itemId = req.params.id;
@@ -46,9 +42,7 @@ invCont.buildDetailView = async function (req, res, next) {
     }
 };
 
-/* ***************************
- * Add new classification
- ***************************/
+// Add new classification
 invCont.addClassification = async (req, res) => {
     const classificationName = req.body.classification_name;
 
@@ -74,9 +68,7 @@ invCont.addClassification = async (req, res) => {
     }
 };
 
-/* ***************************
- * Add new inventory
- ***************************/
+// Add new inventory
 invCont.addInventory = async function (req, res) {
     const {
         inv_make,
@@ -123,9 +115,7 @@ invCont.addInventory = async function (req, res) {
     }
 }
 
-/* ***************************
- *  Update Inventory Data
- * ************************** */
+// Update Inventory Data
 invCont.updateInventory = async function (req, res, next) {
     let nav = await utilities.getNav()
     const {
@@ -184,9 +174,7 @@ invCont.updateInventory = async function (req, res, next) {
     }
 }
 
-/* ***************************
- *  Build management view
- * ************************** */
+// Build management view
 invCont.buildManagementView = async function (req, res, next) {
     let nav = await utilities.getNav()
     const classificationList = await utilities.buildClassificationList()
@@ -199,16 +187,12 @@ invCont.buildManagementView = async function (req, res, next) {
     })
 }
 
-/* ***************************
- * Intentional 500 Error
- ***************************/
+// Intentional 500 Error
 invCont.testError = (req, res, next) => {
     next(new Error("Intentional 500 error for testing purposes"))
 }
 
-/* ***************************
- * Return Inventory by Classification As JSON
- * ************************** */
+// Return Inventory by Classification As JSON
 invCont.getInventoryJSON = async (req, res, next) => {
     const classification_id = parseInt(req.params.classificationId)
     const invData = await invModel.getInventoryByClassificationId(classification_id)
@@ -219,9 +203,7 @@ invCont.getInventoryJSON = async (req, res, next) => {
     }
 }
 
-/* ***************************
- * Build edit inventory view
- * ************************** */
+// Build edit inventory view
 invCont.buildEditInventoryView = async function (req, res, next) {
     const inv_id = parseInt(req.params.inventory_id)
     let nav = await utilities.getNav()
@@ -257,9 +239,7 @@ invCont.buildEditInventoryView = async function (req, res, next) {
     })
 }
 
-/* ***************************
- *  Build delete confirmation view
- * ************************** */
+// Build delete confirmation view
 invCont.buildDeleteInventoryView = async function (req, res, next) {
     const inv_id = parseInt(req.params.inventory_id)
     let nav = await utilities.getNav()
@@ -286,9 +266,7 @@ invCont.buildDeleteInventoryView = async function (req, res, next) {
     })
 }
 
-/* ***************************
- *  Delete Inventory Item
- * ************************** */
+// Delete Inventory Item
 invCont.deleteInventory = async function (req, res, next) {
     let nav = await utilities.getNav()
 

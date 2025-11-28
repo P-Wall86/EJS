@@ -4,19 +4,19 @@ const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
 const accountController = require("../controllers/accountController")
 
-// Login page route
+// Login Page Route
 router.get(
     "/login",
     utilities.handleErrors(accountController.buildLogin)
 )
 
-// Registration page route
+// Registration Page Route
 router.get(
     "/registration",
     utilities.handleErrors(accountController.buildRegister)
 )
 
-// Registration form submission
+// Registration Form Submission
 router.post(
     "/registration",
     regValidate.registrationRules(),
@@ -24,7 +24,7 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 );
 
-// Login form submission with validation middleware
+// Login Form Submission with Validation
 router.post(
     "/login",
     regValidate.loginRules(),
@@ -32,7 +32,7 @@ router.post(
     utilities.handleErrors(accountController.accountLogin)
 )
 
-// Account Management
+// Account Management Page Route
 router.get(
     "/", 
     utilities.checkJWTToken,
@@ -40,14 +40,14 @@ router.get(
     utilities.handleErrors(accountController.buildAccountManagement)
 )
 
-// Update Account Form
+// Show Update Account Form (GET)
 router.get(
     "/update/:accountId", 
     utilities.checkLogin, 
     utilities.handleErrors(accountController.buildUpdateAccountView)
 )
 
-// Update Account
+// Process Update Account Submission (POST)
 router.post(
     "/update",
     utilities.checkLogin,
@@ -65,7 +65,7 @@ router.post(
     utilities.handleErrors(accountController.changePassword)
 );
 
-// Logout
+// Logout Route
 router.get(
     "/logout", 
     utilities.handleErrors(accountController.accountLogout)

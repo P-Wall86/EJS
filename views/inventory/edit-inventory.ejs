@@ -2,8 +2,6 @@
     <%= title %>
 </h1>
 
-<!-- Server-side validation errors -->
-
 <% if (errors && !errors.isEmpty()) { %>
 
     <ul class="flash-messages">
@@ -14,8 +12,6 @@
             <% }) %>
     </ul>
     <% } %>
-
-        <!-- Flash messages -->
 
         <% if (messages && messages.notice) { %>
             <% messages.notice.forEach(msg=> { %>
@@ -87,4 +83,4 @@
                                 <button type="submit" disabled>Update Vehicle</button>
                         </form>
 
-<script src="/js/inv-update.js"></script>
+                        <script src="/js/inv-update.js"></script>

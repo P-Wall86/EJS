@@ -3,7 +3,7 @@ const utilities = require("./")
 
 const validate = {}
 
-// Classification validation rules
+// Classification Validation Rules
 validate.classificationRules = () => {
     return [
         body('classification_name')
@@ -15,7 +15,7 @@ validate.classificationRules = () => {
     ]
 }
 
-// Check classification data
+// Check Classification Data
 validate.checkClassificationData = async (req, res, next) => {
     const errors = validationResult(req)
 
@@ -36,7 +36,7 @@ validate.checkClassificationData = async (req, res, next) => {
     next()
 }
 
-// Inventory validation rules
+// Inventory Validation Rules
 validate.inventoryRules = () => {
     return [
         body("inv_make").trim().isLength({ min: 1 }).withMessage("• Make is required."),
@@ -50,7 +50,7 @@ validate.inventoryRules = () => {
     ]
 }
 
-// Check inventory data
+// Check Inventory Data
 validate.checkInventoryData = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -69,7 +69,7 @@ validate.checkInventoryData = async (req, res, next) => {
     next()
 }
 
-// Check update inventory data
+// Check Update Data
 validate.checkUpdateData = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {

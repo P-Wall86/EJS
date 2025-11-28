@@ -1,7 +1,7 @@
 <h1>Vehicle Management</h1>
 
 <div class="management-view">
-    <!-- Display flash messages -->
+
     <% if (messages.success) { %>
         <% messages.success.forEach(msg=> { %>
             <div class="alert-success">
@@ -10,7 +10,6 @@
             <% }) %>
                 <% } %>
 
-                    <!-- Notice / Info messages -->
                     <% if (messages.notice) { %>
                         <% messages.notice.forEach(msg=> { %>
                             <div class="alert-info">
@@ -19,7 +18,6 @@
                             <% }) %>
                                 <% } %>
 
-                                    <!-- Error messages -->
                                     <% if (messages.error) { %>
                                         <% messages.error.forEach(msg=> { %>
                                             <div class="flash-messages">
@@ -28,7 +26,6 @@
                                             <% }) %>
                                                 <% } %>
 
-                                                    <!-- Inventory Management Links-->
                                                     <ul class="management-links">
                                                         <li><a href="/inv/add-classification">Add a new
                                                                 classification</a></li>
@@ -36,7 +33,6 @@
                                                     </ul>
 </div>
 
-<!-- Inventory Management Grid -->
 <div class="management-header">
     <h2>Manage Inventory</h2>
     <p>Select a classification from the list to see the items belonging to the classification.</p>

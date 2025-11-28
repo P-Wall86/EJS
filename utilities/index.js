@@ -3,9 +3,7 @@ const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const Util = {}
 
-/* ************************
- * Constructs the nav HTML unordered list
- ************************** */
+// Constructs the Nav HTML UL
 Util.getNav = async function () {
     let data = await invModel.getClassifications()
     let list = "<ul>"
@@ -26,9 +24,7 @@ Util.getNav = async function () {
     return list
 }
 
-/* ************************
- * Build the classification select list
- ************************** */
+// Build Classification Select List
 Util.buildClassificationList = async function (classification_id = null) {
     let data = await invModel.getClassifications()
     let classificationList =
@@ -50,9 +46,7 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList
 }
 
-/* **************************************
-* Build the classification view HTML
-* ************************************ */
+//Build Classification View HTML
 Util.buildClassificationGrid = async function (data) {
     let grid
     if (data.length > 0) {
@@ -83,9 +77,7 @@ Util.buildClassificationGrid = async function (data) {
     return grid
 }
 
-/* **************************************
-* Build items by ID
-* ************************************ */
+// Build Items by ID
 Util.buildItemHTML = function (vehicle) {
     return `
     <section class="vehicle-detail">
@@ -117,19 +109,10 @@ Util.buildItemHTML = function (vehicle) {
     `;
 };
 
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for 
- * General Error Handling
- **************************************** */
+// Handle Errors
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-/* ****************************************
-* Middleware to check token validity
-**************************************** */
-/* ****************************************
-* Middleware to check token validity
-**************************************** */
+// Check Token Validity
 Util.checkJWTToken = (req, res, next) => {
     res.locals.loggedin = 0;
     res.locals.accountData = null;
@@ -153,9 +136,7 @@ Util.checkJWTToken = (req, res, next) => {
     }
 }
 
-/* ****************************************
- *  Check Login
- * ************************************ */
+// Check Login
 Util.checkLogin = (req, res, next) => {
     if (res.locals.loggedin) {
         next()
@@ -165,9 +146,7 @@ Util.checkLogin = (req, res, next) => {
     }
 }
 
-/* ****************************************
-* Middleware to check account type
-**************************************** */
+// Check Account Type
 Util.checkAccountType = (req, res, next) => {
     if (res.locals.loggedin && res.locals.accountData) {
         const accountType = res.locals.accountData.account_type;

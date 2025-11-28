@@ -1,8 +1,6 @@
 const pool = require("../database/")
 
-/* *****************************
-*   Register new account
-* *************************** */
+// Register new account
 async function registerAccount(account_firstname, account_lastname, account_email, account_password) {
     try {
         const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
@@ -12,9 +10,7 @@ async function registerAccount(account_firstname, account_lastname, account_emai
     }
 }
 
-/* **********************
- *   Check for existing email
- * ********************* */
+// Check for existing email
 async function checkExistingEmail(account_email){
   try {
     const sql = "SELECT * FROM account WHERE account_email = $1"
@@ -25,9 +21,7 @@ async function checkExistingEmail(account_email){
   }
 }
 
-/* *****************************
-* Return account data using email address
-* ***************************** */
+// Return account data using email address
 async function getAccountByEmail (account_email) {
   try {
     const result = await pool.query(
@@ -39,9 +33,7 @@ async function getAccountByEmail (account_email) {
   }
 }
 
-/* *****************************
-* Get Account by account_id
-* ***************************** */
+// Get Account by account_id
 async function getAccountById(account_id) {
     try {
         const result = await pool.query(
@@ -55,9 +47,7 @@ async function getAccountById(account_id) {
     }
 }
 
-/* *****************************
-* Update account data
-* ***************************** */
+// Update account data
 async function updateAccount(account_firstname, account_lastname, account_email, account_id) {
     try {
         const sql = "UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *";
@@ -74,9 +64,7 @@ async function updateAccount(account_firstname, account_lastname, account_email,
     }
 }
 
-/* *****************************
-* Update account password
-* ***************************** */
+// Update account password
 async function updatePassword(account_password, account_id) {
     try {
         const sql = "UPDATE account SET account_password = $1 WHERE account_id = $2";

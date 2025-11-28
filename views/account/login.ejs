@@ -2,7 +2,6 @@
     <%= title %>
 </h1>
 
-<!-- Display validation errors here -->
 <% if (errors && !errors.isEmpty()) { %>
     <ul class="flash-messages">
         <% errors.array().forEach(error=> { %>
@@ -15,7 +14,6 @@
     </ul>
     <% } %>
 
-        <!-- Flash Messages -->
         <% if (flashMessages && flashMessages.notice) { %>
             <% flashMessages.notice.forEach(msg=> { %>
                 <div class="alert alert-info">
@@ -38,11 +36,11 @@
                             </span>
 
                             <div class="password-wrapper">
-                            <input type="password" id="account_password" name="account_password" required
-                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-                            <button type="button" id="togglePasswordLogin" class="toggle-password">Show</button>
+                                <input type="password" id="account_password" name="account_password" required
+                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                                <button type="button" id="togglePasswordLogin" class="toggle-password">Show</button>
                             </div>
-                            
+
                             <button type="submit">Login</button>
                         </form>
 
