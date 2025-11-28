@@ -68,7 +68,7 @@ invCont.addClassification = async (req, res) => {
     }
 };
 
-// Add new inventory
+// Add New Vehicle
 invCont.addInventory = async function (req, res) {
     const {
         inv_make,
