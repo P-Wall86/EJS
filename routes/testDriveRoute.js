@@ -24,4 +24,10 @@ router.get(
     utilities.handleErrors(testDriveController.listUserRequests)
 );
 
+// 
+router.get("/request", utilities.checkLogin, (req, res) => {
+    req.flash("error", "You must select a vehicle to request a test drive.");
+    res.redirect("/inv");
+});
+
 module.exports = router;

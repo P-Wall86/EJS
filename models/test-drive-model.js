@@ -2,14 +2,14 @@ const pool = require("../database/");
 
 // Create a new test drive request
 
-async function createRequest(userId, vehicleId, preferredDate, comments) {
+async function createRequest(account_id, inv_id, requested_date, comment) {
     try {
         const sql = `
-    INSERT INTO test_drive_requests (user_id, vehicle_id, preferred_date, comments)
+    INSERT INTO public.test_drive (account_id, inv_id, requested_date, comment)
     VALUES ($1, $2, $3, $4)
-    RETURNING request_id
+    RETURNING test_drive_id
     `;
-        const values = [userId, vehicleId, preferredDate, comments || null];
+        const values = [account_id, inv_id, requested_date, comment];
         const result = await pool.query(sql, values);
         return result.rowCount > 0;
     } catch (error) {
@@ -19,18 +19,27 @@ async function createRequest(userId, vehicleId, preferredDate, comments) {
 }
 
 // Get all test drive requests for a given user
-
-async function getRequestsByUser(userId) {
+async function getRequestsByUser(account_id) {
     try {
         const sql = `
-    SELECT r.request_id, r.preferred_date, r.comments, r.status,
-            v.inv_make, v.inv_model, v.inv_year
-    FROM test_drive_requests r
-    JOIN inventory v ON r.vehicle_id = v.inv_id
-    WHERE r.user_id = $1
-    ORDER BY r.request_date DESC
-    `;
-        const values = [userId];
+        SELECT
+          td.test_drive_id,
+          td.requested_date,
+          td.comment,
+          td.status,
+          v.inv_make,
+          v.inv_model,
+          v.inv_year
+        FROM
+          public.test_drive td
+        JOIN
+          public.inventory v ON td.inv_id = v.inv_id
+        WHERE
+          td.account_id = $1
+        ORDER BY
+          td.requested_date DESC
+        `;
+        const values = [account_id];
         const result = await pool.query(sql, values);
         return result.rows;
     } catch (error) {
@@ -38,6 +47,7 @@ async function getRequestsByUser(userId) {
         throw error;
     }
 }
+
 
 module.exports = {
     createRequest,

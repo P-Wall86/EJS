@@ -1,37 +1,49 @@
 const utilities = require("../utilities");
 const testDriveModel = require("../models/test-drive-model");
+const invModel = require("../models/inventory-model");
 
 // Show form to request a test drive
 async function showRequestForm(req, res, next) {
-    const vehicle_id = req.params.vehicle_id;
+    const inv_id = req.params.vehicle_id;
     let nav = await utilities.getNav();
-    res.render("testdrive/request", {
-        title: "Request a Test Drive",
-        nav,
-        flashMessages: req.flash(),
-        errors: {
-            isEmpty: () => true,
-            array: () => []
-        },
-        formData: {}
-    });
+
+    try {
+        const vehicle = await invModel.getInventoryItemById(inv_id);
+        res.render("testdrive/request", {
+            title: "Test Drive Request",
+            nav,
+            flashMessages: req.flash(),
+            errors: {
+                isEmpty: () => true,
+                array: () => []
+            },
+            formData: {
+                inv_id,
+                vehicle_name: vehicle ? `${vehicle.inv_make} ${vehicle.inv_model}` : "",
+                preferred_date: "",
+                comment: ""
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
 }
 
 // Handle form submission for test drive request
 async function submitRequest(req, res, next) {
     let nav = await utilities.getNav();
-    const { vehicle_id, preferred_date, comments } = req.body;
-    const user_id = req.account.account_id;
+    const { inv_id, preferred_date, comment } = req.body;
+    const account_id = req.account.account_id;
 
     try {
-        const result = await testDriveModel.createRequest(user_id, vehicle_id, preferred_date, comments);
+        const result = await testDriveModel.createRequest(account_id, inv_id, preferred_date, comment);
         if (result) {
             req.flash("success", "Your test drive request has been submitted.");
             res.redirect("/testdrive/my-requests");
         } else {
             req.flash("error", "Failed to submit the test drive request.");
             res.status(400).render("testdrive/request", {
-                title: "Request a Test Drive",
+                title: "Test Drive Request",
                 nav,
                 flashMessages: req.flash(),
                 errors: {
@@ -49,10 +61,10 @@ async function submitRequest(req, res, next) {
 // List test drive requests for the logged-in user
 async function listUserRequests(req, res, next) {
     let nav = await utilities.getNav();
-    const user_id = req.account.account_id;
+    const account_id = req.account.account_id;
 
     try {
-        const requests = await testDriveModel.getRequestsByUser(user_id);
+        const requests = await testDriveModel.getRequestsByUser(account_id);
         res.render("testdrive/my-requests", {
             title: "My Test Drive Requests",
             nav,

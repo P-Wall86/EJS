@@ -1,0 +1,23 @@
+<h1><%= title %></h1>
+
+<% if (flashMessages && flashMessages.success) { %>
+    <div class="alert-success"><%= flashMessages.success %></div>
+<% } %>
+
+<% if (flashMessages && flashMessages.error) { %>
+    <div class="alert-danger"><%= flashMessages.error %></div>
+<% } %>
+
+<% if (requests && requests.length > 0) { %>
+    <ul>
+        <% requests.forEach(request => { %>
+            <li>
+                Vehicle: <strong><%= request.inv_make%> <%= request.inv_model %></strong> -
+                Date: <%= new Date(request.requested_date).toLocaleDateString() %> -
+                Comments: <%= request.comment %>
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>You have no test drive requests.</p>
+<% } %>

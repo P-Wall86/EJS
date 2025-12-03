@@ -11,22 +11,28 @@
 <% } %>
 
 <% if (flashMessages && flashMessages.success) { %>
-    <div class="alert alert-success"><%= flashMessages.success %></div>
+    <div class="alert-success"><%= flashMessages.success %></div>
 <% } %>
 
 <% if (flashMessages && flashMessages.error) { %>
-    <div class="alert alert-danger"><%= flashMessages.error %></div>
+    <div class="alert-error"><%= flashMessages.error %></div>
 <% } %>
 
-<form action="/testdrive/request" method="POST" class="testdrive-form">
-    <label for="vehicle_id">Vehicle ID</label>
-    <input type="number" id="vehicle_id" name="vehicle_id" required value="<%= formData.vehicle_id || '' %>" />
+<form action="/testdrive/request" method="POST" class="register-form testdrive-form">
+    <label>Vehicle Name</label>
+    <p><%= formData.vehicle_name || "Unknown Vehicle" %></p>
+
+    <!-- Aquí el hidden cambia a inv_id para que coincida con la base -->
+    <input type="hidden" id="inv_id" name="inv_id" value="<%= formData.inv_id %>" />
 
     <label for="preferred_date">Preferred Date</label>
-    <input type="date" id="preferred_date" name="preferred_date" required value="<%= formData.preferred_date || '' %>" />
+    <input type="date" id="preferred_date" name="preferred_date" required
+        value="<%= formData.preferred_date || '' %>"
+        min="<%= new Date().toISOString().split('T')[0] %>"
+        title="Select a preferred date (today or later)" />
 
-    <label for="comments">Comments</label>
-    <textarea id="comments" name="comments"><%= formData.comments || '' %></textarea>
+    <label for="comment">Comments</label>
+    <textarea id="comment" name="comment" rows="4" placeholder="Any additional information or requests"><%= formData.comment || '' %></textarea>
 
-    <button type="submit">Submit Request</button>
+    <button type="submit" class="testdrive-btn">Submit Request</button>
 </form>

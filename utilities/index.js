@@ -116,6 +116,7 @@ Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)
 Util.checkJWTToken = (req, res, next) => {
     res.locals.loggedin = 0;
     res.locals.accountData = null;
+    req.account = null;
 
     if (req.cookies.jwt) {
         jwt.verify(
@@ -129,6 +130,7 @@ Util.checkJWTToken = (req, res, next) => {
                 }
                 res.locals.accountData = accountData
                 res.locals.loggedin = 1
+                req.account = accountData;
                 next()
             })
     } else {
