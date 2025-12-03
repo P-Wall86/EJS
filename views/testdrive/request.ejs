@@ -1,0 +1,32 @@
+<h1><%= title %></h1>
+
+<% if (errors && !errors.isEmpty()) { %>
+    <ul class="flash-messages">
+        <% errors.array().forEach(error => { %>
+            <% if (error.msg !== 'Invalid value') { %>
+                <li><%= error.msg %></li>
+            <% } %>
+        <% }) %>
+    </ul>
+<% } %>
+
+<% if (flashMessages && flashMessages.success) { %>
+    <div class="alert alert-success"><%= flashMessages.success %></div>
+<% } %>
+
+<% if (flashMessages && flashMessages.error) { %>
+    <div class="alert alert-danger"><%= flashMessages.error %></div>
+<% } %>
+
+<form action="/testdrive/request" method="POST" class="testdrive-form">
+    <label for="vehicle_id">Vehicle ID</label>
+    <input type="number" id="vehicle_id" name="vehicle_id" required value="<%= formData.vehicle_id || '' %>" />
+
+    <label for="preferred_date">Preferred Date</label>
+    <input type="date" id="preferred_date" name="preferred_date" required value="<%= formData.preferred_date || '' %>" />
+
+    <label for="comments">Comments</label>
+    <textarea id="comments" name="comments"><%= formData.comments || '' %></textarea>
+
+    <button type="submit">Submit Request</button>
+</form>

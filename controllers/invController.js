@@ -36,6 +36,7 @@ invCont.buildDetailView = async function (req, res, next) {
             title: `${itemData.inv_make} ${itemData.inv_model} (${itemData.inv_year})`,
             nav,
             itemHTML,
+            inv_id: itemData.inv_id
         });
     } catch (error) {
         next(error);
