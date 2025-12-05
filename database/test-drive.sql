@@ -7,7 +7,6 @@ CREATE TABLE public.test_drive (
     account_id INTEGER NOT NULL,
     inv_id INTEGER NOT NULL,
     requested_date TIMESTAMP NOT NULL,
-    status VARCHAR(20) NOT NULL DEFAULT 'pending',
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

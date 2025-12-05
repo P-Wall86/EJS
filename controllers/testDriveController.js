@@ -32,6 +32,33 @@ async function showRequestForm(req, res, next) {
 // Handle form submission for test drive request
 async function submitRequest(req, res, next) {
     let nav = await utilities.getNav();
+
+    if (req.validationErrors && req.validationErrors.length > 0) {
+        let vehicle = null;
+        try {
+            if (req.body.inv_id) {
+                vehicle = await invModel.getInventoryItemById(req.body.inv_id);
+            }
+        } catch (err) {
+        }
+
+        return res.status(400).render("testdrive/request", {
+            title: "Test Drive Request",
+            nav,
+            flashMessages: req.flash(),
+            errors: {
+                isEmpty: () => false,
+                array: () => req.validationErrors
+            },
+            formData: {
+                inv_id: req.body.inv_id || "",
+                vehicle_name: vehicle ? `${vehicle.inv_make} ${vehicle.inv_model}` : "Unknown Vehicle",
+                preferred_date: req.body.preferred_date || "",
+                comment: req.body.comment || ""
+            }
+        });
+    }
+
     const { inv_id, preferred_date, comment } = req.body;
     const account_id = req.account.account_id;
 
@@ -48,9 +75,14 @@ async function submitRequest(req, res, next) {
                 flashMessages: req.flash(),
                 errors: {
                     isEmpty: () => false,
-                    array: () => ["Failed to save your request."]
+                    array: () => [{ msg: "Failed to save your request." }]
                 },
-                formData: req.body
+                formData: {
+                    inv_id,
+                    vehicle_name: "",
+                    preferred_date,
+                    comment
+                }
             });
         }
     } catch (error) {

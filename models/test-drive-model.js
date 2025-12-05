@@ -26,10 +26,10 @@ async function getRequestsByUser(account_id) {
           td.test_drive_id,
           td.requested_date,
           td.comment,
-          td.status,
           v.inv_make,
           v.inv_model,
-          v.inv_year
+          v.inv_year,
+          v.inv_thumbnail
         FROM
           public.test_drive td
         JOIN

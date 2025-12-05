@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities");
 const testDriveController = require("../controllers/testDriveController");
+const { testDriveRules, validate } = require("../utilities/testDrive-validation");
 
 // Route to show the form to request a test drive (GET)
 router.get(
@@ -14,6 +15,8 @@ router.get(
 router.post(
     "/request",
     utilities.checkLogin,
+    testDriveRules(),
+    validate,
     utilities.handleErrors(testDriveController.submitRequest)
 );
 
@@ -24,7 +27,7 @@ router.get(
     utilities.handleErrors(testDriveController.listUserRequests)
 );
 
-// 
+// Route to show the form to request a test drive
 router.get("/request", utilities.checkLogin, (req, res) => {
     req.flash("error", "You must select a vehicle to request a test drive.");
     res.redirect("/inv");

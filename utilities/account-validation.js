@@ -105,18 +105,18 @@ validate.updateAccountRules = () => {
         body("account_firstname")
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please provide a first name."),
+            .withMessage("• Please provide a first name."),
 
         body("account_lastname")
             .trim()
             .isLength({ min: 1 })
-            .withMessage("Please provide a last name."),
+            .withMessage("• Please provide a last name."),
 
         body("account_email")
             .trim()
             .isEmail()
             .normalizeEmail()
-            .withMessage("A valid email is required.")
+            .withMessage("• A valid email is required.")
             .custom(async (account_email, { req }) => {
                 const account_id = req.body.account_id;
                 const account = await accountModel.getAccountById(account_id);
@@ -127,7 +127,7 @@ validate.updateAccountRules = () => {
                 
                 const emailExists = await accountModel.getAccountByEmail(account_email);
                 if (emailExists) {
-                    throw new Error("Email already exists. Please use a different email address.");
+                    throw new Error("• Email already exists. Please use a different email address.");
                 }
             }),
     ];
@@ -156,9 +156,9 @@ validate.changePasswordRules = () => {
         body("account_password")
             .trim()
             .isLength({ min: 12 })
-            .withMessage("Password must be at least 12 characters long.")
+            .withMessage("• Password must be at least 12 characters long.")
             .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$/)
-            .withMessage("Password must contain at least 1 uppercase letter, 1 number, and 1 special character."),
+            .withMessage("• Password must contain at least 1 uppercase letter, 1 number, and 1 special character."),
     ];
 };
 

@@ -2,6 +2,8 @@
     <%= title %>
 </h1>
 
+<% const messages = flashMessages || messages; %>
+
 <% if (errors && !errors.isEmpty()) { %>
     <ul class="flash-messages">
         <% errors.array().forEach(error=> { %>

@@ -22,14 +22,13 @@
     <label>Vehicle Name</label>
     <p><%= formData.vehicle_name || "Unknown Vehicle" %></p>
 
-    <!-- Aquí el hidden cambia a inv_id para que coincida con la base -->
     <input type="hidden" id="inv_id" name="inv_id" value="<%= formData.inv_id %>" />
 
     <label for="preferred_date">Preferred Date</label>
     <input type="date" id="preferred_date" name="preferred_date" required
         value="<%= formData.preferred_date || '' %>"
         min="<%= new Date().toISOString().split('T')[0] %>"
-        title="Select a preferred date (today or later)" />
+        title="Select a preferred date" />
 
     <label for="comment">Comments</label>
     <textarea id="comment" name="comment" rows="4" placeholder="Any additional information or requests"><%= formData.comment || '' %></textarea>

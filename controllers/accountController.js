@@ -109,8 +109,8 @@ async function accountLogin(req, res) {
         return
     }
 
-    console.log("Password Ingresada:", req.body.account_password);
-    console.log("Hash Almacenado (Debe tener 60 caracteres):", accountData.account_password);
+    console.log("Entered Password:", req.body.account_password);
+    console.log("Stored Hash (should be 60 characters):", accountData.account_password);
 
     try {
         if (await bcrypt.compare(account_password, accountData.account_password)) {
@@ -154,14 +154,13 @@ async function buildAccountManagement(req, res, next) {
 
 // Build Update Account View
 async function buildUpdateAccountView(req, res, next) {
-    const accountId = parseInt(req.params.accountId);
     let nav = await utilities.getNav();
-    
-    res.render("account/update-account", { 
+
+    res.render("account/update-account", {
         title: "Update Account Information",
         nav,
-        messages: req.flash(),
-        accountData: res.locals.accountData, 
+        flashMessages: req.flash(),
+        accountData: res.locals.accountData,
         errors: null,
     });
 }
@@ -171,13 +170,13 @@ async function buildUpdateAccountView(req, res, next) {
 async function accountLogout(req, res, next) {
     res.clearCookie("jwt");
     req.flash("notice", "You have been logged out successfully.");
-    res.redirect("/"); 
+    res.redirect("/");
 }
 
 // Process Account Information Update
 async function updateAccount(req, res, next) {
     const { account_firstname, account_lastname, account_email, account_id } = req.body;
-    
+
     const updateResult = await accountModel.updateAccount(
         account_firstname,
         account_lastname,
@@ -187,19 +186,35 @@ async function updateAccount(req, res, next) {
 
     if (updateResult) {
         const accessToken = jwt.sign(
-            updateResult, 
-            process.env.ACCESS_TOKEN_SECRET, 
+            updateResult,
+            process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: 3600 }
         );
 
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
 
         req.flash("success", "Account information successfully updated.");
-        res.redirect("/account/");
+        return res.redirect("/account/");
 
     } else {
-        req.flash("error", "Sorry, the update failed.");
-        res.redirect(`/account/update/${account_id}`);
+        let nav = await utilities.getNav();
+        const errors = {
+            isEmpty: () => false,
+            array: () => [{ msg: "Sorry, the update failed. Please try again." }]
+        };
+
+        return res.status(400).render("account/update-account", {
+            title: "Update Account Information",
+            nav,
+            flashMessages: req.flash(),
+            accountData: {
+                account_firstname,
+                account_lastname,
+                account_email,
+                account_id
+            },
+            errors
+        });
     }
 }
 
@@ -208,7 +223,7 @@ async function changePassword(req, res, next) {
     const { account_password, account_id } = req.body;
 
     const hashedPassword = await bcrypt.hash(account_password, 10);
-    
+
     const updateResult = await accountModel.updatePassword(
         hashedPassword,
         account_id
@@ -218,8 +233,18 @@ async function changePassword(req, res, next) {
         req.flash("success", "Password successfully changed.");
         res.redirect("/account/");
     } else {
-        req.flash("error", "Sorry, the password change failed.");
-        res.redirect(`/account/update/${account_id}`);
+        let nav = await utilities.getNav();
+        const errors = {
+            isEmpty: () => false,
+            array: () => [{ msg: "Sorry, the password change failed. Please try again." }]
+        };
+        return res.status(400).render("account/update-account", {
+            title: "Update Account Information",
+            nav,
+            flashMessages: req.flash(),
+            accountData: { account_id },
+            errors
+        });
     }
 }
 

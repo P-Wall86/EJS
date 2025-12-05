@@ -39,14 +39,52 @@ validate.checkClassificationData = async (req, res, next) => {
 // Inventory Validation Rules
 validate.inventoryRules = () => {
     return [
-        body("inv_make").trim().isLength({ min: 1 }).withMessage("• Make is required."),
-        body("inv_model").trim().isLength({ min: 1 }).withMessage("• Model is required."),
-        body("inv_year").isInt({ min: 1900, max: 2100 }).withMessage("• Year is invalid."),
-        body("inv_description").trim().isLength({ min: 1 }).withMessage("• Description is required."),
-        body("inv_price").isFloat({ min: 0 }).withMessage("• Price must be a positive number."),
-        body("inv_miles").isInt({ min: 0 }).withMessage("• Miles must be a positive integer."),
-        body("inv_color").trim().isLength({ min: 1 }).matches(/^[A-Za-z\s]+$/).withMessage("• Color is required."),
-        body("classification_id").isInt().withMessage("• Classification is required.")
+        body("classification_id")
+            .notEmpty()
+            .withMessage("• Classification is required.")
+            .bail()
+            .isInt()
+            .withMessage("• Invalid classification selection."),
+
+        body("inv_make")
+            .trim()
+            .notEmpty()
+            .withMessage("• Make is required."),
+
+        body("inv_model")
+            .trim()
+            .notEmpty()
+            .withMessage("• Model is required."),
+
+        body("inv_year")
+            .notEmpty()
+            .withMessage("• Year is required.")
+            .isInt({ min: 1900, max: 2100 })
+            .withMessage("• Year is invalid."),
+
+        body("inv_description")
+            .trim()
+            .notEmpty()
+            .withMessage("• Description is required."),
+
+        body("inv_price")
+            .notEmpty()
+            .withMessage("• Price is required.")
+            .isFloat({ min: 0 })
+            .withMessage("• Price must be a positive number."),
+
+        body("inv_miles")
+            .notEmpty()
+            .withMessage("• Miles is required.")
+            .isInt({ min: 0 })
+            .withMessage("• Miles must be a positive integer."),
+
+        body("inv_color")
+            .trim()
+            .notEmpty()
+            .withMessage("• Color is required.")
+            .matches(/^[A-Za-z\s]+$/)
+            .withMessage("• Color must contain only letters."),
     ]
 }
 
